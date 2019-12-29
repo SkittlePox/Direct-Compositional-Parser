@@ -10,7 +10,7 @@ class SyntacticPrimitive(enum.Enum):
     N = "N"
     CP = "CP"
 
-class SyntaxFeature(enum.Enum):
+class SyntacticFeature(enum.Enum):
     def __str__(self):
         return str(self.value)
     A = "A"

@@ -1,7 +1,8 @@
-from SyntaxSemantics import *
+from LexicalStructures import *
+from LexicalEntry import *
 
 def main():
-    feat = (SyntaxFeature.A, SyntaxFeature.V)
+    feat = (SyntacticFeature.A, SyntacticFeature.V)
     z = SyntacticPrimitive.S
     cat = SyntacticCategory((z, z), feat)
     zat = SyntacticCategory((cat, SyntacticPrimitive.NP))
@@ -12,6 +13,9 @@ def main():
     cee = SemanticType((bee, SemanticPrimitive.t))
     print(bee)
     print(cee)
+
+    lex = LexicalEntry("eyy", cee, zat)
+    print(lex)
 
 if __name__ == "__main__":
     main()
