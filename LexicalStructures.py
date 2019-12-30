@@ -29,10 +29,14 @@ class SyntacticSlash(enum.Enum):
 
 class SyntacticCategory:
     def __init__(self, cat, slash=SyntacticSlash.L, features=None):
-        if isinstance(cat, SyntacticPrimitive):
-            self.tuple = (cat, None)
+        self.primitive = isinstance(cat, SyntacticPrimitive)
+        if self.primitive:
+            self.lhs = cat
+            self.rhs = None
         else:
-            self.tuple = cat
+            self.lhs = cat[0]
+            self.rhs = cat[1]
+
         self.features = features
         self.slash = slash
 
@@ -43,10 +47,10 @@ class SyntacticCategory:
             return "["+reduce(lambda a, b: f"{a},{b}", self.features)+"]"
 
     def possible_primitive(self):
-        if self.tuple[1] == None:
-            return str(self.tuple[0])
+        if self.primitive:
+            return str(self.lhs)
         else:
-            return f"({str(self.tuple[0])}/{str(self.slash)}{str(self.tuple[1])})"
+            return f"({str(self.lhs)}/{str(self.slash)}{str(self.rhs)})"
 
     def __str__(self):
         return f"{self.possible_primitive()}{self.optional_features()}"
@@ -62,13 +66,18 @@ class SemanticPrimitive(enum.Enum):
 class SemanticType:
     def __init__(self, type):
         self.primitive = isinstance(type, SemanticPrimitive)
-        self.tuple = type
+        if self.primitive:
+            self.lhs = type
+            self.rhs = None
+        else:
+            self.lhs = type[0]
+            self.rhs = type[1]
 
     def __str__(self):
         if self.primitive:
-            return str(self.tuple)
+            return str(self.lhs)
         else:
-            return f"<{str(self.tuple[0])},{str(self.tuple[1])}>"
+            return f"<{str(self.lhs)},{str(self.rhs)}>"
 
 class SemanticEntry:
     def __init__(self):
@@ -77,7 +86,6 @@ class SemanticEntry:
 class OpenClassEntry(SemanticEntry):
     def __init__(self, expression):
         self.expression = expression
-
     def __str__(self):
         return self.expression
 

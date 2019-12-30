@@ -1,21 +1,25 @@
 class CombinatoryRule():
-    def __init__(self, test, operation):
-        self.test = test
-        self.operation = operation
-
-    def test(self, syntactic_category_a, syntactic_category_b):
+    def __init__(self, test, operate):
         """
-        This function takes syntactic grammar categories
+        test takes syntactic grammar categories
         Returns whether or not this rule can operate on the given categories
-        """
-        return self.func(syntactic_category_a, syntactic_category_b)
 
-    def operate(self, lexical_entry_a, lexical_entry_b):
-        """
-        This function takes whole lexical entries
+        operate takes whole lexical entries
         Returns the resulting lexical entry after applying this rule
         """
-        return self.operation(lexical_entry_a, lexical_entry_b)
+        self.test = test
+        self.operate = operate
+
+    # def test(self, syntactic_category_a, syntactic_category_b):
+    #
+    #     return self.testfunc(syntactic_category_a, syntactic_category_b)
+    #
+    # def operate(self, lexical_entry_a, lexical_entry_b):
+    #     """
+    #     This function takes whole lexical entries
+    #     Returns the resulting lexical entry after applying this rule
+    #     """
+    #     return self.operation(lexical_entry_a, lexical_entry_b)
 
 class Grammar():
     def __init__(self, rules):
@@ -24,7 +28,8 @@ class Grammar():
 class DCGrammar(Grammar):
     def __init__(self):
         rules = []
-        # R1a_test = lambda a, b: 
+        # R1a_test = lambda a, b: b.rhs == a.lhs
+        # print(R1a_test())
         # rules.append(CombinatoryRule(test=lambda a,b: a == b)
 
         Grammar.__init__(self, rules)
