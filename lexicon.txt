@@ -1,4 +1,5 @@
 Jim ; NP ; e
 Zilk ; S/NP ; <e,t>
-Sweej ; S(S/NP) ; <<e,e>,t>
+Sweej ; S/(S/NP) ; <<e,e>,t>
 Dil ; (S/NP)/NP ; <e,<e,t>>
+Dil ; (S/NP)/((S/NP)/NP) ; <e,<e,<e,t>>>

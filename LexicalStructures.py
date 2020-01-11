@@ -14,7 +14,7 @@ class SyntacticPrimitive(enum.Enum):
 
 class SyntacticFeature(enum.Enum):
     def __str__(self):
-        return str(self.value)
+        return self.value
     A = "A"
     V = "V"
 
@@ -48,7 +48,7 @@ class SyntacticCategory:
 
     def possible_primitive(self):
         if self.primitive:
-            return str(self.lhs)
+            return f"{str(self.lhs)}"
         else:
             return f"({str(self.lhs)}/{str(self.slash)}{str(self.rhs)})"
 

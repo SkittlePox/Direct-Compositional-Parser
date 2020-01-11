@@ -5,7 +5,28 @@ class LexiconParser:
         pass
 
     def parseSyntacticCategory(self, cat):
-        return None
+        def findSlash(subcat):
+            bracketcount = 0
+            for i in range(len(subcat)):
+                if subcat[i] == "(":
+                    bracketcount += 1
+                elif subcat[i] == ")":
+                    bracketcount -= 1
+                elif bracketcount == 0 and subcat[i] == "/":
+                    return i
+
+        if "/" not in cat:
+            return SyntacticCategory(SyntacticPrimitive(cat))
+        else:
+            centerSlash = findSlash(cat)
+            firstArg = cat[:centerSlash]
+            secondArg = cat[centerSlash+1:]
+
+            if firstArg[0] == "(":
+                firstArg = firstArg[1:-1]
+            if secondArg[0] == "(":
+                secondArg = secondArg[1:-1]
+            return SyntacticCategory((self.parseSyntacticCategory(firstArg), self.parseSyntacticCategory(secondArg)))
 
     def parseSemanticType(self, type):
         def findBreak(subtype):
@@ -22,11 +43,7 @@ class LexiconParser:
             return SemanticType(SemanticPrimitive(type))
         else:
             subtype = type[1:-1]
-            # print(subtype)
             centerline = findBreak(subtype)
-            # print(findBreak)
-            # print(subtype[:centerline])
-            # print(subtype[centerline+1:])
             return SemanticType((self.parseSemanticType(subtype[:centerline]), self.parseSemanticType(subtype[centerline+1:])))
             pass
 

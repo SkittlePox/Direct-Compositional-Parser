@@ -1,6 +1,7 @@
 from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
+from Lexicon import *
 
 def main():
     # feat = (SyntacticFeature.A, SyntacticFeature.V)
@@ -33,7 +34,8 @@ def main():
     # print(R1a_operate(jim, walk))
     lex = LexiconParser()
     entries = lex.parseFile("lexicon.txt")
-    print(entries[3])
+    lexicon = Lexicon(entries)
+    print(lexicon)
 
 if __name__ == "__main__":
     main()
