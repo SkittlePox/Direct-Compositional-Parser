@@ -79,28 +79,6 @@ class SemanticType:
         else:
             return f"<{str(self.lhs)},{str(self.rhs)}>"
 
-# class ComplexSemanticType(SemanticType):
-#     def __init__(self, type):
-#         primitive = isinstance(type, SemanticPrimitive)
-#         if primitive:
-#             self.lhs = type
-#             self.rhs = None
-#         else:
-#             self.lhs = type[0]
-#             self.rhs = type[1]
-#         SemanticType.__init__(primitive)
-#
-#     def __str__(self):
-#         if self.primitive:
-#             return str(self.lhs)
-#         else:
-#             return f"<{str(self.lhs)},{str(self.rhs)}>"
-#
-# class SemanticType:
-#     def __init__(self, primitive):
-#         self.type = type
-#         self.primitive = primitive
-
 class SemanticEntry:
     def __init__(self):
         pass

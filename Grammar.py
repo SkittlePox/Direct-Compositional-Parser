@@ -1,3 +1,5 @@
+from GrammarRules import *
+
 class CombinatoryRule():
     def __init__(self, test, operate):
         """
@@ -17,12 +19,12 @@ class Grammar():
 class DCGrammar(Grammar):
     def __init__(self):
         rules = []
-        R1a_test = lambda a, b: b.rhs == a.lhs
-        def R1a_operate(a, b):
-            newName = f"{a.english} {b.english}"
-            newCat = b.category.lhs
-            newSem = b.type.rhs
-            return LexicalEntry(newName, newCat, newSem)
-        rules.append(CombinatoryRule(test=R1a_test, operate=R1a_operate)
+        # R1a_test = lambda a, b: b.rhs == a.lhs
+        # def R1a_operate(a, b):
+        #     newName = f"{a.english} {b.english}"
+        #     newCat = b.category.lhs
+        #     newSem = b.type.rhs
+        #     return LexicalEntry(newName, newCat, newSem)
+        rules.append(CombinatoryRule(test=R1a_test, operate=R1a_operate))
 
-        Grammar.__init__(self, rules)
+        Grammar(self, rules)
