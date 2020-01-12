@@ -1,5 +1,6 @@
 Jim ; NP ; e
-Zilk ; S/NP ; <e,t>
+walk ; S/NP ; <e,t>
+Zilk ; NP/NP ; <e,t>
 Sweej ; S/(S/NP) ; <<e,e>,t>
 Dil ; (S/NP)/NP ; <e,<e,t>>
 Dil ; (S/NP)/((S/NP)/NP) ; <e,<e,<e,t>>>

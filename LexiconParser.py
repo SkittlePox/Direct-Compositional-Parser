@@ -20,13 +20,22 @@ class LexiconParser:
         else:
             centerSlash = findSlash(cat)
             firstArg = cat[:centerSlash]
-            secondArg = cat[centerSlash+1:]
+            slash = None
+
+            if cat[centerSlash+1] == "r":
+                secondArg = cat[centerSlash+2:]
+                slash = SyntacticSlash.R
+            elif cat[centerSlash+1] == "l":
+                secondArg = cat[centerSlash+2:]
+                slash = SyntacticSlash.L
+            else:
+                secondArg = cat[centerSlash+1:]
 
             if firstArg[0] == "(":
                 firstArg = firstArg[1:-1]
             if secondArg[0] == "(":
                 secondArg = secondArg[1:-1]
-            return SyntacticCategory((self.parseSyntacticCategory(firstArg), self.parseSyntacticCategory(secondArg)))
+            return SyntacticCategory((self.parseSyntacticCategory(firstArg), self.parseSyntacticCategory(secondArg)), slash=slash)
 
     def parseSemanticType(self, type):
         def findBreak(subtype):

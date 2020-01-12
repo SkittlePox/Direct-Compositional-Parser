@@ -1,5 +1,8 @@
 import enum
 from functools import reduce
+# from main import VERBOSE
+
+VERBOSE = True
 
 #### Syntax
 
@@ -20,15 +23,35 @@ class SyntacticFeature(enum.Enum):
 
 class SyntacticSlash(enum.Enum):
     def __str__(self):
-        if self == SyntacticSlash.L:
-            return ""
-        else:
+        if VERBOSE:
             return self.value
+        else:
+            return ""
     L = "˻"
     R = "ʳ"
 
 class SyntacticCategory:
-    def __init__(self, cat, slash=SyntacticSlash.L, features=None):
+    # def __init__(self, cat, slash=None, features=None):
+    #     self.primitive = isinstance(cat, SyntacticPrimitive)
+    #     if self.primitive:
+    #         self.lhs = cat
+    #         self.rhs = None
+    #     else:
+    #         self.lhs = cat[0]
+    #         self.rhs = cat[1]
+    #
+    #     self.features = features
+    #     if slash == None and self.primitive == False:
+    #         if self.lhs.primitive and self.lhs.lhs == SyntacticPrimitive.S:
+    #             self.slash = SyntacticSlash.L
+    #         elif self.lhs == self.rhs:
+    #             self.slash = SyntacticSlash.L
+    #         else:
+    #             self.slash = SyntacticSlash.R
+    #     else:
+    #         self.slash = slash
+
+    def __init__(self, cat, slash=None, features=None):
         self.primitive = isinstance(cat, SyntacticPrimitive)
         if self.primitive:
             self.lhs = cat
@@ -38,7 +61,15 @@ class SyntacticCategory:
             self.rhs = cat[1]
 
         self.features = features
-        self.slash = slash
+        if slash == None and self.primitive == False:
+            if self.lhs.primitive and self.lhs.lhs == SyntacticPrimitive.S:
+                self.slash = SyntacticSlash.L
+            elif self.lhs == self.rhs:
+                self.slash = SyntacticSlash.L
+            else:
+                self.slash = SyntacticSlash.R
+        else:
+            self.slash = slash
 
     def optional_features(self):
         if self.features is None:
@@ -54,6 +85,11 @@ class SyntacticCategory:
 
     def __str__(self):
         return f"{self.possible_primitive()}{self.optional_features()}"
+
+    def __eq__(self, other):
+        return isinstance(other, SyntacticCategory) \
+        and self.lhs == other.lhs and self.rhs == other.rhs \
+        and self.features == other.features and self.slash == other.slash
 
 #### Semantics
 
