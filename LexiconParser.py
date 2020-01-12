@@ -4,7 +4,7 @@ class LexiconParser:
     def __init__(self):
         pass
 
-    def parseSyntacticCategory(self, cat):
+    def parse_syntactic_category(self, cat):
         def findSlash(subcat):
             bracketcount = 0
             for i in range(len(subcat)):
@@ -35,9 +35,9 @@ class LexiconParser:
                 firstArg = firstArg[1:-1]
             if secondArg[0] == "(":
                 secondArg = secondArg[1:-1]
-            return SyntacticCategory((self.parseSyntacticCategory(firstArg), self.parseSyntacticCategory(secondArg)), slash=slash)
+            return SyntacticCategory((self.parse_syntactic_category(firstArg), self.parse_syntactic_category(secondArg)), slash=slash)
 
-    def parseSemanticType(self, type):
+    def parse_semantic_type(self, type):
         def findBreak(subtype):
             bracketcount = 0
             for i in range(len(subtype)):
@@ -53,21 +53,21 @@ class LexiconParser:
         else:
             subtype = type[1:-1]
             centerline = findBreak(subtype)
-            return SemanticType((self.parseSemanticType(subtype[:centerline]), self.parseSemanticType(subtype[centerline+1:])))
+            return SemanticType((self.parse_semantic_type(subtype[:centerline]), self.parse_semantic_type(subtype[centerline+1:])))
             pass
 
-    def parseEntry(self, entry):
+    def parse_entry(self, entry):
         entryArray = entry.split(" ; ")
         english = entryArray[0]
-        category = self.parseSyntacticCategory(entryArray[1])
-        type = self.parseSemanticType(entryArray[2])
+        category = self.parse_syntactic_category(entryArray[1])
+        type = self.parse_semantic_type(entryArray[2])
         return LexicalEntry(english, category, type)
 
-    def parseFile(self, filename):
+    def parse_file(self, filename):
         entries = []
         with open(filename, 'r') as fp:
             line = fp.readline()
             while line:
-                entries.append(self.parseEntry(line[:-1]))
+                entries.append(self.parse_entry(line[:-1]))
                 line = fp.readline()
         return entries

@@ -5,7 +5,7 @@ from Lexicon import *
 
 def main():
     lex = LexiconParser()
-    entries = lex.parseFile("lexicon.txt")
+    entries = lex.parse_file("lexicon.txt")
     lexicon = Lexicon(entries)
     print(lexicon)
     grammar = DCGrammar()
