@@ -68,6 +68,7 @@ class LexiconParser:
         with open(filename, 'r') as fp:
             line = fp.readline()
             while line:
-                entries.append(self.parse_entry(line[:-1]))
+                if line[0] is not "#":
+                    entries.append(self.parse_entry(line[:-1]))
                 line = fp.readline()
         return entries

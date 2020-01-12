@@ -1,6 +1,6 @@
-Jim ; NP ; e
-walk ; S/NP ; <e,t>
-Zilk ; NP/NP ; <e,t>
-Sweej ; S/(S/NP) ; <<e,e>,t>
-Dil ; (S/NP)/NP ; <e,<e,t>>
-Dil ; (S/NP)/((S/NP)/NP) ; <e,<e,<e,t>>>
+Mitka ; NP ; e
+Porky ; NP ; e
+walks ; S/NP ; <e,t>
+#talks ; S/NP ; <e,t>
+likes ; (S/NP)/NP ; <e,<e,t>>
+#feeds ; (S/NP)/NP ; <e,<e,t>>

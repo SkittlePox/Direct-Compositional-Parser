@@ -3,6 +3,7 @@ from functools import reduce
 # from main import VERBOSE
 
 VERBOSE = True
+SPACING = True
 
 #### Syntax
 
@@ -138,4 +139,6 @@ class LexicalEntry:
         self.category = syntacticCategory
         self.type = semanticType
     def __str__(self):
-        return f"< \"{self.english}\" ; {str(self.category)} ; {str(self.type)} >"
+        if SPACING:
+            return f"< \"{self.english}\" ; {str(self.category)} ; {str(self.type)} >"
+        return f"<\"{self.english}\";{str(self.category)};{str(self.type)}>"

@@ -2,6 +2,7 @@ from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
 from Lexicon import *
+from GrammarInteractor import *
 
 def main():
     lex = LexiconParser()
@@ -9,7 +10,9 @@ def main():
     lexicon = Lexicon(entries)
     print(lexicon)
     grammar = DCGrammar()
-    print(grammar.possible_combinations(lexicon.entries[0], lexicon.entries[1]))
+    interactor = GrammarInteractor(grammar)
+    # print(interactor.possible_combinations(lexicon.entries[0], lexicon.entries[1]))
+    interactor.single_layer_possible_combinations(entries)
 
 if __name__ == "__main__":
     main()

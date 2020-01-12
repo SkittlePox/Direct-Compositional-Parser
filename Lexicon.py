@@ -3,7 +3,7 @@ class Lexicon:
         self.entries = entries
 
     def __str__(self):
-        out = ""
+        out = "=== Lexicon ===\n"
         for e in self.entries:
             out = out + str(e) + "\n"
-        return out[:-1]
+        return out + "==============="
