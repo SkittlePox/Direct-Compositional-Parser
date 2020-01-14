@@ -61,7 +61,8 @@ class LexiconParser:
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
         type = self.parse_semantic_type(entryArray[2])
-        return LexicalEntry(english, category, type)
+        entry = OpenClassEntry(type)
+        return LexicalEntry(english, category, entry)
 
     def parse_file(self, filename):
         entries = []

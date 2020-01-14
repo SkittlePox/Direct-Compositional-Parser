@@ -117,27 +117,31 @@ class SemanticType:
             return f"<{str(self.lhs)},{str(self.rhs)}>"
 
 class SemanticEntry:
-    def __init__(self):
+    def __init__(self, type, expression):
+        self.type = type
+        self.expression = expression
         pass
 
 class OpenClassEntry(SemanticEntry):
-    def __init__(self, expression):
+    def __init__(self, type, expression=None):
+        self.type = type
         self.expression = expression
     def __str__(self):
-        return self.expression
+        return str(self.type)
 
 # class ClosedClassEntry(SemanticEntry):
 #     def __init__(self, lambda_expression):
 #         self.lambda_expression = lambda_expression
 
 
-#### Entry
+#### Lexical Entry
 
 class LexicalEntry:
-    def __init__(self, english, syntacticCategory, semanticType):
+    def __init__(self, english, syntacticCategory, semanticEntry):
         self.english = english
         self.category = syntacticCategory
-        self.type = semanticType
+        self.entry = semanticEntry
+        self.type = semanticEntry.type
     def __str__(self):
         if SPACING:
             return f"< \"{self.english}\" ; {str(self.category)} ; {str(self.type)} >"
