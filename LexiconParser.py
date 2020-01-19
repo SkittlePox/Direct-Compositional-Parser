@@ -56,12 +56,52 @@ class LexiconParser:
             return SemanticType((self.parse_semantic_type(subtype[:centerline]), self.parse_semantic_type(subtype[centerline+1:])))
             pass
 
+    def parse_semantic_func(self, func):
+        def segment(subfunc):
+            subfunc += " "
+            bracketcount = 0
+            start = 0
+            lst = []
+            i = 0
+            while i < len(subfunc):
+                if subfunc[i] == "(":
+                    bracketcount += 1
+                elif subfunc[i] == ")":
+                    bracketcount -= 1
+                elif bracketcount == 0 and subfunc[i] == " " or i == len(subfunc)-1:
+                    lst.append(subfunc[start:i])
+                    start = i+1
+                    i += 1
+                i += 1
+            return lst
+
+        def to_dict_entry(entry):
+            if "(" not in entry:
+                equals = entry.index('=')
+                return {entry[:equals]: entry[equals+1:]}
+            else:
+                equals = entry.index('=')
+                return {entry[:equals]: self.parse_semantic_func(entry[equals+2:-1])}
+
+        seg = segment(func)
+        # print(seg)
+        if len(seg) == 1 and "=" not in seg[0]:
+            return SemanticFunction(seg[0], True)
+        else:
+            funcDict = {}
+            entries = list(map(to_dict_entry, seg))
+            # print(entries)
+            for e in entries:
+                funcDict.update(e)
+            return SemanticFunction(funcDict)
+
     def parse_entry(self, entry):
         entryArray = entry.split(" ; ")
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
         type = self.parse_semantic_type(entryArray[2])
-        entry = OpenClassEntry(type)
+        func = self.parse_semantic_func(entryArray[3])
+        entry = OpenClassEntry(type, func)
         return LexicalEntry(english, category, entry)
 
     def parse_file(self, filename):

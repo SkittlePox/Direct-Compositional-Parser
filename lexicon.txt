@@ -1,6 +1,7 @@
-Mitka ; NP ; e
-Porky ; NP ; e
-walks ; S/NP ; <e,t>
+Mitka ; NP ; e ; h
+Porky ; NP ; e ; p
+Zinkly ; NP ; e ; z
+walks ; S/NP ; <e,t> ; m=1 p=0 z=0
 #talks ; S/NP ; <e,t>
-likes ; (S/NP)/NP ; <e,<e,t>>
+likes ; (S/NP)/NP ; <e,<e,t>> ; m=(m=1 p=1) p=(m=0 p=1)
 #feeds ; (S/NP)/NP ; <e,<e,t>>

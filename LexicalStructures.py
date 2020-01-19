@@ -32,26 +32,6 @@ class SyntacticSlash(enum.Enum):
     R = "ʳ"
 
 class SyntacticCategory:
-    # def __init__(self, cat, slash=None, features=None):
-    #     self.primitive = isinstance(cat, SyntacticPrimitive)
-    #     if self.primitive:
-    #         self.lhs = cat
-    #         self.rhs = None
-    #     else:
-    #         self.lhs = cat[0]
-    #         self.rhs = cat[1]
-    #
-    #     self.features = features
-    #     if slash == None and self.primitive == False:
-    #         if self.lhs.primitive and self.lhs.lhs == SyntacticPrimitive.S:
-    #             self.slash = SyntacticSlash.L
-    #         elif self.lhs == self.rhs:
-    #             self.slash = SyntacticSlash.L
-    #         else:
-    #             self.slash = SyntacticSlash.R
-    #     else:
-    #         self.slash = slash
-
     def __init__(self, cat, slash=None, features=None):
         self.primitive = isinstance(cat, SyntacticPrimitive)
         if self.primitive:
@@ -116,16 +96,36 @@ class SemanticType:
         else:
             return f"<{str(self.lhs)},{str(self.rhs)}>"
 
+class SemanticFunction:
+    def __init__(self, func, primitive=False):
+        self.func = func
+        self.primitive = primitive
+    def __str__(self):
+        if self.primitive:
+            return self.func
+        else:
+            baseStr = ""
+            for key, value in self.func.items():
+                if isinstance(value, str):
+                    baseStr += f"{key}={str(value)} "
+                else:
+                    baseStr += f"{key}=({str(value)}) "
+            baseStr = baseStr[:-1]
+            return baseStr
+
 class SemanticEntry:
-    def __init__(self, type, expression):
+    # A function is just a dictionary! Function of function is a dictionary of dictionaries!
+    def __init__(self, type):
         self.type = type
-        self.expression = expression
         pass
 
+    # def __call__(self, ):
+    #     pass
+
 class OpenClassEntry(SemanticEntry):
-    def __init__(self, type, expression=None):
+    def __init__(self, type, function=None):
         self.type = type
-        self.expression = expression
+        self.function = function
     def __str__(self):
         return str(self.type)
 
@@ -143,6 +143,9 @@ class LexicalEntry:
         self.entry = semanticEntry
         self.type = semanticEntry.type
     def __str__(self):
+        cat = str(self.category)
+        # if not self.category.primitive:
+        #     cat = cat[1:-1]
         if SPACING:
-            return f"< \"{self.english}\" ; {str(self.category)} ; {str(self.type)} >"
-        return f"<\"{self.english}\";{str(self.category)};{str(self.type)}>"
+            return f"< \"{self.english}\" ; {cat} ; {str(self.type)} ; {str(self.entry.function)} >"
+        return f"<\"{self.english}\";{cat};{str(self.type)};{str(self.entry.function)}>"
