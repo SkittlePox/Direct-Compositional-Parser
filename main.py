@@ -11,11 +11,8 @@ def main():
     print(lexicon)
     grammar = DCGrammar()
     interactor = GrammarInteractor(grammar)
-    # z = interactor.possible_combinations(lexicon.entries[0], lexicon.entries[3])
-    # print(z[0].operate(lexicon.entries[0], lexicon.entries[3]))
-    # interactor.single_layer_possible_combinations(entries)
-    # interactor.multi_layer_possible_combinations(entries)
     interactor.populate_lexicon(lexicon)
+    print("After populating:")
     print(lexicon)
 
 if __name__ == "__main__":

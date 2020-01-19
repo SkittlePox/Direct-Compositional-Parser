@@ -6,8 +6,6 @@ class Lexicon:
         if isinstance(entry, list):
             for e in entry:
                 self.entries.add(e)
-            # map(lambda e: self.entries.add(e), entry)
-            # self.entries.extend(entry)
         else:
             self.entries.add(entry)
 

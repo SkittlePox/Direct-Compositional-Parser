@@ -18,24 +18,4 @@ class GrammarInteractor():
                     combinatoryRules = self.possible_combinations(a, b)
                     if len(combinatoryRules) is not 0:
                         newEntries = list(map(lambda x: x(a, b), combinatoryRules))
-                        # print(newEntries[0])
                         lexicon.add(newEntries)
-
-        # print(lexicon)
-
-    # def single_layer_possible_combinations(self, entries):
-    #     for a in entries:
-    #         for b in entries:
-    #             combs = self.possible_combinations(a, b)
-    #             if len(combs) is not 0:
-    #                 print(str(a))
-    #                 print(str(b))
-    #                 print(str(self.grammar.rules[combs[0]].operate(a, b)) + " by " + combs[0] + "\n")
-    #
-    # def multi_layer_possible_combinations(self, entries, layers=3):
-    #     for i in range(layers):
-    #         for a in entries:
-    #             for b in entries:
-    #                 combs = self.possible_combinations(a, b)
-    #                 newEntries = list(map(lambda x: x.operate(a, b), combs))
-    #                 print(newEntries)
