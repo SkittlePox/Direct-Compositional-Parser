@@ -100,6 +100,13 @@ class SemanticFunction:
     def __init__(self, func, primitive=False):
         self.func = func
         self.primitive = primitive
+
+    def __call__(self, arg):
+        if arg.func in self.func:
+            return self.func[arg.func]
+        else:
+            return "UND" # Undefined
+
     def __str__(self):
         if self.primitive:
             return self.func
@@ -128,6 +135,8 @@ class OpenClassEntry(SemanticEntry):
         self.function = function
     def __str__(self):
         return str(self.type)
+    def __call__(self, arg):
+        self.function(arg)
 
 # class ClosedClassEntry(SemanticEntry):
 #     def __init__(self, lambda_expression):
@@ -140,12 +149,12 @@ class LexicalEntry:
     def __init__(self, english, syntacticCategory, semanticEntry):
         self.english = english
         self.category = syntacticCategory
-        self.entry = semanticEntry
+        self.function = semanticEntry.function
         self.type = semanticEntry.type
     def __str__(self):
         cat = str(self.category)
         # if not self.category.primitive:
         #     cat = cat[1:-1]
         if SPACING:
-            return f"< \"{self.english}\" ; {cat} ; {str(self.type)} ; {str(self.entry.function)} >"
-        return f"<\"{self.english}\";{cat};{str(self.type)};{str(self.entry.function)}>"
+            return f"< \"{self.english}\" ; {cat} ; {str(self.type)} ; {str(self.function)} >"
+        return f"<\"{self.english}\";{cat};{str(self.type)};{str(self.function)}>"

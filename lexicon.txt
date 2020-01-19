@@ -1,4 +1,4 @@
-Mitka ; NP ; e ; h
+Mitka ; NP ; e ; m
 Porky ; NP ; e ; p
 Zinkly ; NP ; e ; z
 walks ; S/NP ; <e,t> ; m=1 p=0 z=0
