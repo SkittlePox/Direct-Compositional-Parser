@@ -13,6 +13,9 @@ class CombinatoryRule():
         self.test = test
         self.operate = operate
 
+    def __call__(self, a, b):
+        return self.operate(a, b)
+
     def __str__(self):
         return self.name
 

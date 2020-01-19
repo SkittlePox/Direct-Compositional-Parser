@@ -96,6 +96,11 @@ class SemanticType:
         else:
             return f"<{str(self.lhs)},{str(self.rhs)}>"
 
+    def __eq__(self, other):
+        return isinstance(other, SemanticType) \
+        and self.primitive == other.primitive \
+        and self.lhs == other.lhs and self.rhs == other.rhs
+
 class SemanticFunction:
     def __init__(self, func, primitive=False):
         self.func = func
@@ -105,7 +110,7 @@ class SemanticFunction:
         if arg.func in self.func:
             return self.func[arg.func]
         else:
-            return "UND" # Undefined
+            return SemanticFunctionUnknown()
 
     def __str__(self):
         if self.primitive:
@@ -120,12 +125,19 @@ class SemanticFunction:
             baseStr = baseStr[:-1]
             return baseStr
 
+class SemanticFunctionUnknown(SemanticFunction):
+    def __init__(self):
+        self.primitive = True
+        self.func = "UND"
+        pass
+    def __call__(self, arg):
+        return SemanticFunctionUnknown()
+
 class SemanticEntry:
     # A function is just a dictionary! Function of function is a dictionary of dictionaries!
     def __init__(self, type):
         self.type = type
         pass
-
     # def __call__(self, ):
     #     pass
 
@@ -151,6 +163,10 @@ class LexicalEntry:
         self.category = syntacticCategory
         self.function = semanticEntry.function
         self.type = semanticEntry.type
+    def __eq__(self, other):
+        return isinstance(other, LexicalEntry) \
+        and self.english == other.english and self.category == other.category \
+        and self.type == other.type #and self.function == other.function
     def __str__(self):
         cat = str(self.category)
         # if not self.category.primitive:
@@ -158,3 +174,5 @@ class LexicalEntry:
         if SPACING:
             return f"< \"{self.english}\" ; {cat} ; {str(self.type)} ; {str(self.function)} >"
         return f"<\"{self.english}\";{cat};{str(self.type)};{str(self.function)}>"
+    def __hash__(self):
+        return hash(self.english) # LOL easy way out

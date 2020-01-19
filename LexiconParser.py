@@ -84,13 +84,11 @@ class LexiconParser:
                 return {entry[:equals]: self.parse_semantic_func(entry[equals+2:-1])}
 
         seg = segment(func)
-        # print(seg)
         if len(seg) == 1 and "=" not in seg[0]:
             return SemanticFunction(seg[0], True)
         else:
             funcDict = {}
             entries = list(map(to_dict_entry, seg))
-            # print(entries)
             for e in entries:
                 funcDict.update(e)
             return SemanticFunction(funcDict)
