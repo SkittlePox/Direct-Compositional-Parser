@@ -28,15 +28,16 @@ class SemanticType:
         and self.lhs == other.lhs and self.rhs == other.rhs
 
 class SemanticFunction:
-    def __init__(self, func, primitive=False, name=None):
-        self.func = func
+    def __init__(self, func, primitive=False):
+        self.func = func    # This is just a dictionary
         self.primitive = primitive
         # if self.primitive:
         #     self.name = func
         # else:
-        self.name = name
 
     def __call__(self, arg):
+        # Change this so that the entire function is stored, not just the result
+        # Also cache the latest result
         if arg.func in self.func:
             return self.func[arg.func]
         else:
@@ -81,6 +82,6 @@ class OpenClassEntry(SemanticEntry):
     def __call__(self, arg):
         self.function(arg)
 
-# class ClosedClassEntry(SemanticEntry):
-#     def __init__(self, lambda_expression):
-#         self.lambda_expression = lambda_expression
+class ClosedClassEntry(SemanticEntry):
+    def __init__(self, type, function=None):
+        self.lambda_expression = lambda_expression
