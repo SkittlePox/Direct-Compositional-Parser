@@ -56,7 +56,7 @@ class LexiconParser:
             return SemanticType((self.parse_semantic_type(subtype[:centerline]), self.parse_semantic_type(subtype[centerline+1:])))
             pass
 
-    def parse_semantic_func(self, func):
+    def parse_semantic_func(self, func, name=None):
         def segment(subfunc):
             subfunc += " "
             bracketcount = 0
@@ -85,20 +85,20 @@ class LexiconParser:
 
         seg = segment(func)
         if len(seg) == 1 and "=" not in seg[0]:
-            return SemanticFunction(seg[0], True)
+            return SemanticFunction(seg[0], True, name)
         else:
             funcDict = {}
             entries = list(map(to_dict_entry, seg))
             for e in entries:
                 funcDict.update(e)
-            return SemanticFunction(funcDict)
+            return SemanticFunction(funcDict, name=name)
 
     def parse_entry(self, entry):
         entryArray = entry.split(" ; ")
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
         type = self.parse_semantic_type(entryArray[2])
-        func = self.parse_semantic_func(entryArray[3])
+        func = self.parse_semantic_func(entryArray[3], english)
         entry = OpenClassEntry(type, func)
         return LexicalEntry(english, category, entry)
 
