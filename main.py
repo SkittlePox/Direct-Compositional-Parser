@@ -8,6 +8,7 @@ def main():
     lexParser = LexiconParser()
     entries = lexParser.parse_file("lexicon.txt")
     lexicon = Lexicon(set(entries))
+    # print(entries)
     print(lexicon)
     grammar = DCGrammar()
     interactor = GrammarInteractor(grammar)

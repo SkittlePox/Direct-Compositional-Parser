@@ -57,7 +57,7 @@ class LexiconParser:
             pass
 
     def parse_semantic_func(self, func):
-        def segment(subfunc):
+        def tokenize(subfunc):   # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
             subfunc += " "
             bracketcount = 0
             start = 0
@@ -83,12 +83,12 @@ class LexiconParser:
                 equals = entry.index('=')
                 return {entry[:equals]: self.parse_semantic_func(entry[equals+2:-1])}
 
-        seg = segment(func)
-        if len(seg) == 1 and "=" not in seg[0]:
-            return SemanticFunction(seg[0], True)
+        tokens = tokenize(func)
+        if len(tokens) == 1 and "=" not in tokens[0]:
+            return SemanticFunction(tokens[0], True)
         else:
             funcDict = {}
-            entries = list(map(to_dict_entry, seg))
+            entries = list(map(to_dict_entry, tokens))
             for e in entries:
                 funcDict.update(e)
             return SemanticFunction(funcDict)
