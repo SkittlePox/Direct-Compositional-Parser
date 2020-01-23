@@ -27,6 +27,29 @@ class SemanticType:
         and self.primitive == other.primitive \
         and self.lhs == other.lhs and self.rhs == other.rhs
 
+#########################
+
+class SemanticEntry:
+    # A function is just a dictionary! Function of function is a dictionary of dictionaries!
+    def __init__(self, type):
+        self.type = type
+        pass
+    # def __call__(self, ):
+    #     pass
+
+class OpenClassEntry(SemanticEntry):
+    def __init__(self, type, function=None):
+        self.type = type
+        self.function = function
+    def __str__(self):
+        return f"{str(self.type)} ; {str(self.function)}"
+    def __call__(self, arg):
+        self.function(arg)
+
+class ClosedClassEntry(SemanticEntry):
+    def __init__(self, type, function=None):
+        self.lambda_expression = lambda_expression
+
 class SemanticFunction:
     def __init__(self, func, primitive=False):
         self.func = func    # This is just a dictionary
@@ -64,24 +87,3 @@ class SemanticFunctionUnknown(SemanticFunction):
         pass
     def __call__(self, arg):
         return SemanticFunctionUnknown()
-
-class SemanticEntry:
-    # A function is just a dictionary! Function of function is a dictionary of dictionaries!
-    def __init__(self, type):
-        self.type = type
-        pass
-    # def __call__(self, ):
-    #     pass
-
-class OpenClassEntry(SemanticEntry):
-    def __init__(self, type, function=None):
-        self.type = type
-        self.function = function
-    def __str__(self):
-        return str(self.type)
-    def __call__(self, arg):
-        self.function(arg)
-
-class ClosedClassEntry(SemanticEntry):
-    def __init__(self, type, function=None):
-        self.lambda_expression = lambda_expression

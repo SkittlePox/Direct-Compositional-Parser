@@ -8,8 +8,8 @@ def R1a_test(a, b):
 def R1a_operate(a, b):
     newName = f"{a.english} {b.english}"
     newCat = a.category.lhs
-    newEnt = a.function(b.function)
-    newSem = OpenClassEntry(a.type.rhs, newEnt)
+    newEnt = a.semantics.function(b.semantics.function)
+    newSem = OpenClassEntry(a.semantics.type.rhs, newEnt)
     return LexicalEntry(newName, newCat, newSem)
 
 ### R-1b
@@ -20,6 +20,6 @@ def R1b_test(a, b):
 def R1b_operate(a, b):
     newName = f"{a.english} {b.english}"
     newCat = b.category.lhs
-    newEnt = b.function(a.function)
-    newSem = OpenClassEntry(b.type.rhs, newEnt)
+    newEnt = b.semantics.function(a.semantics.function)
+    newSem = OpenClassEntry(b.semantics.type.rhs, newEnt)
     return LexicalEntry(newName, newCat, newSem)
