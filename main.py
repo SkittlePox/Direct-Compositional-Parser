@@ -1,7 +1,6 @@
 from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
-from Lexicon import *
 from GrammarInteractor import *
 
 def main():

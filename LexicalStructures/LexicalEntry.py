@@ -15,6 +15,7 @@ class LexicalEntry:
         global COUNTER
         self.id = COUNTER
         COUNTER += 1
+        
     def __eq__(self, other):
         return isinstance(other, LexicalEntry) \
         and self.english == other.english and self.category == other.category \
