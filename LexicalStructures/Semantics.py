@@ -1,6 +1,6 @@
 import enum
 
-class SemanticPrimitive(enum.Enum):
+class SemanticTypePrimitive(enum.Enum):
     def __str__(self):
         return str(self.value)
     e = "e"
@@ -8,7 +8,7 @@ class SemanticPrimitive(enum.Enum):
 
 class SemanticType:
     def __init__(self, type):
-        self.primitive = isinstance(type, SemanticPrimitive)
+        self.primitive = isinstance(type, SemanticTypePrimitive)
         if self.primitive:
             self.lhs = type
             self.rhs = None
@@ -30,7 +30,6 @@ class SemanticType:
 #########################
 
 class SemanticEntry:
-    # A function is just a dictionary! Function of function is a dictionary of dictionaries!
     def __init__(self, type):
         self.type = type
         pass
@@ -87,3 +86,33 @@ class SemanticFunctionUnknown(SemanticFunction):
         pass
     def __call__(self, arg):
         return SemanticFunctionUnknown()
+
+############ Experiment Below
+
+class SemanticExpression:
+    def __init__(self, function, argument_s):
+        if isinstance(argument_s, list) and len(argument_s) is not 1:
+            sem = function
+            for arg in argument_s[:-1]:
+                sem = SemanticExpression(sem, arg)
+            self.baselayer = False
+            self.function = sem
+            self.argument = argument_s[-1]
+        else:
+            self.baselayer = True
+            self.function = function
+            self.argument = argument_s[0] if isinstance(argument_s, list) else argument_s
+
+    def evaluate(self):
+        if isinstance(self.function, dict):
+            return self.function[self.argument]
+        else:
+            return self.function.evaluate()[self.argument]
+
+    def __str__(self):
+        return f"{str(self.function)}({str(self.argument)})"
+
+class SemEx:
+    def __init__(self, deep_function, deep_args):
+        self.function = deep_function
+        self.deep_args = deep_args

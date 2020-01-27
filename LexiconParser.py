@@ -49,7 +49,7 @@ class LexiconParser:
                     return i
 
         if type[0] != "<":
-            return SemanticType(SemanticPrimitive(type))
+            return SemanticType(SemanticTypePrimitive(type))
         else:
             subtype = type[1:-1]
             centerline = findBreak(subtype)
