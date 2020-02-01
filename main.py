@@ -37,6 +37,9 @@ def test2():
     lexicon = Lexicon(set(entries))
     print(lexicon)
 
+# def test3():
+#     a = ASemanticIntention("talks", "billy")
+
 
 if __name__ == "__main__":
     main()

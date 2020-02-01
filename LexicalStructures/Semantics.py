@@ -116,3 +116,18 @@ class SemEx:
     def __init__(self, deep_function, deep_args):
         self.function = deep_function
         self.deep_args = deep_args
+
+############################## Another experiment Below
+
+# class ASemanticIntention:
+#     def __init__(self, int_function, int_argument):
+#         self.int_function = int_function
+#         self.int_argument = int_argument
+#
+# class ASemanticEntry:
+#     def __init__(self, type, intention):
+#         self.type = type
+#         self.intention = intention
+#
+#     def extension(self):
+#         pass

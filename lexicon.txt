@@ -1,6 +1,7 @@
 Mitka ; NP ; e ; m
 Porky ; NP ; e ; p
 Zinkly ; NP ; e ; z
+Binkly ; NP ; e
 walks ; S/NP ; <e,t> ; m=1 p=0 z=0
 talks ; S/NP ; <e,t> ; talks'
 likes ; (S/NP)/NP ; <e,<e,t>> ; m=(m=1 p=1) p=(m=0 p=1) z=(m=0 p=0)
