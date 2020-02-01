@@ -19,14 +19,10 @@ class CombinatoryRule():
     def __str__(self):
         return self.name
 
-class Grammar():
-    def __init__(self, rules):
-        self.rules = rules
 
-class DCGrammar(Grammar):
+class Grammar():
     def __init__(self):
         rules = {}
         rules['R-1a'] = (CombinatoryRule(name="R-1a", test=R1a_test, operate=R1a_operate))
         rules['R-1b'] = (CombinatoryRule(name="R-1b", test=R1b_test, operate=R1b_operate))
         self.rules = rules
-        Grammar(rules)

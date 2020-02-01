@@ -9,7 +9,7 @@ def main():
     lexicon = Lexicon(set(entries))
     # print(entries)
     print(lexicon)
-    grammar = DCGrammar()
+    grammar = Grammar()
     interactor = GrammarInteractor(grammar)
     interactor.populate_lexicon(lexicon)
     print("After populating:")

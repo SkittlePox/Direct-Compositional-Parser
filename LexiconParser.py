@@ -5,6 +5,9 @@ class LexiconParser:
         pass
 
     def parse_syntactic_category(self, cat):
+        """
+        Parses a syntactic category like S/NP or (S/NP)/(S/NP)
+        """
         def findSlash(subcat):
             bracketcount = 0
             for i in range(len(subcat)):
@@ -38,6 +41,9 @@ class LexiconParser:
             return SyntacticCategory((self.parse_syntactic_category(firstArg), self.parse_syntactic_category(secondArg)), slash=slash)
 
     def parse_semantic_type(self, type):
+        """
+        Parses a semantic type like <e,t> or <e,<e,t>>
+        """
         def findBreak(subtype):
             bracketcount = 0
             for i in range(len(subtype)):
@@ -57,6 +63,10 @@ class LexiconParser:
             pass
 
     def parse_semantic_func(self, func):
+        """
+        Parses a semantic function
+        I'm still deciding how to represent intentional vs extensional functions
+        """
         def tokenize(subfunc):   # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
             subfunc += " "
             bracketcount = 0
@@ -94,6 +104,10 @@ class LexiconParser:
             return SemanticFunction(funcDict)
 
     def parse_entry(self, entry):
+        """
+        Parses an individual lexical entry in a lexicon file
+        The parsing is broken up into syntactic, semantic, etc.
+        """
         entryArray = entry.split(" ; ")
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
@@ -103,6 +117,9 @@ class LexiconParser:
         return LexicalEntry(english, category, entry)
 
     def parse_file(self, filename):
+        """
+        Turns a lexicon file into a list of LexicalEntry objects
+        """
         entries = []
         with open(filename, 'r') as fp:
             line = fp.readline()
