@@ -1,26 +1,34 @@
+from LexicalStructures.LexicalEntry import *
+
 class Lexicon:
-    def __init__(self, entries):
-        self.entries = entries  # A list of LexicalEntrys
-        self.id_counter = 0
-        self.assign_ids()
+    def __init__(self, entries=[]):
+        self.entries = list(set(entries))  # A list of LexicalEntrys
+        self.new_id = 1
 
-    def assign_ids(self):
-        self.id_counter = 0
         for e in self.entries:
-            self.assign_id(e)
-
-    def assign_id(self, e):
-        e.id = self.id_counter
-        self.id_counter += 1
+            e.id = self.new_id
+            self.new_id += 1
 
     def add(self, entry):
-        if isinstance(entry, list):
-            for e in entry:
-                self.assign_id(e)
-                self.entries.add(e)
-        else:
-            self.assign_id(entry)
-            self.entries.add(entry)
+        if isinstance(entry, LexicalEntry):
+            entry = [entry]
+        for e in entry:
+            if not self.contains(e):
+                e.id = self.new_id
+                self.new_id += 1
+                self.entries.append(e)
+
+    def contains(self, entry):
+        for e in self.entries:
+            if entry == e:
+                return True
+        return False
+
+    def retrieve(self, id):
+        entry = None
+        for e in self.entries:
+            if e.id == id:
+                return e
 
     def __str__(self):
         out = "=== Lexicon ===\n"

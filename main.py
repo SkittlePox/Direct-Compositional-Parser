@@ -6,7 +6,7 @@ from GrammarInteractor import *
 def main():
     lexParser = LexiconParser()
     entries = lexParser.parse_file("lexicon.txt")
-    lexicon = Lexicon(set(entries))
+    lexicon = Lexicon(list(set(entries)))
     # print(entries)
     print(lexicon)
     grammar = Grammar()
