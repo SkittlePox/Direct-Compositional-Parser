@@ -6,7 +6,7 @@ class GrammarInteractor():
         self.grammar = grammar
 
     def possible_combinations(self, a, b):
-        selectors = list(map(lambda x: x.test(a.category, b.category), self.grammar.rules.values()))
+        selectors = list(map(lambda x: x.test(a, b), self.grammar.rules.values()))
         # data = map(lambda x: str(x), self.grammar.rules)
         return list(compress(self.grammar.rules.values(), selectors))
 

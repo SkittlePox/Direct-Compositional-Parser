@@ -3,8 +3,8 @@ from .GrammarRules import *
 class CombinatoryRule():
     def __init__(self, name, test, operate):
         """
-        test takes syntactic grammar categories
-        Returns whether or not this rule can operate on the given categories
+        test takes whole lexical entries and only looks at their syntax
+        Returns whether or not this rule can operate on the given syntax categories
 
         operate takes whole lexical entries
         Returns the resulting lexical entry after applying this rule
