@@ -62,10 +62,10 @@ class LexiconParser:
             return SemanticType((self.parse_semantic_type(subtype[:centerline]), self.parse_semantic_type(subtype[centerline+1:])))
             pass
 
-    def parse_semantic_func(self, func):
+    def parse_semantic_extension(self, func):
         """
-        Parses a semantic function
-        I'm still deciding how to represent intentional vs extensional functions
+        Parses a semantic function into a dictionary into a SemanticExtension
+        m=(m=1 p=1) p=(m=0 p=1) z=(m=0 p=0) -> {m: {m: 1, p: 1}, p: {m: 0, p: 1}, z: {m: 0, p: 0}}
         """
         def tokenize(subfunc):   # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
             subfunc += " "
@@ -91,17 +91,58 @@ class LexiconParser:
                 return {entry[:equals]: entry[equals+1:]}
             else:
                 equals = entry.index('=')
-                return {entry[:equals]: self.parse_semantic_func(entry[equals+2:-1])}
+                return {entry[:equals]: self.parse_semantic_extension(entry[equals+2:-1])}
 
         tokens = tokenize(func)
         if len(tokens) == 1 and "=" not in tokens[0]:
-            return SemanticFunction(tokens[0], True)
+            return SemanticExtension(function=tokens[0])
         else:
             funcDict = {}
             entries = list(map(to_dict_entry, tokens))
             for e in entries:
                 funcDict.update(e)
-            return SemanticFunction(funcDict)
+            return SemanticExtension(function=funcDict)
+
+    # def parse_semantic_func(self, func):
+    #     """
+    #     Parses a semantic function
+    #     I'm still deciding how to represent intentional vs extensional functions
+    #     """
+    #     def tokenize(subfunc):   # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
+    #         subfunc += " "
+    #         bracketcount = 0
+    #         start = 0
+    #         lst = []
+    #         i = 0
+    #         while i < len(subfunc):
+    #             if subfunc[i] == "(":
+    #                 bracketcount += 1
+    #             elif subfunc[i] == ")":
+    #                 bracketcount -= 1
+    #             elif bracketcount == 0 and subfunc[i] == " " or i == len(subfunc)-1:
+    #                 lst.append(subfunc[start:i])
+    #                 start = i+1
+    #                 i += 1
+    #             i += 1
+    #         return lst
+    #
+    #     def to_dict_entry(entry):
+    #         if "(" not in entry:
+    #             equals = entry.index('=')
+    #             return {entry[:equals]: entry[equals+1:]}
+    #         else:
+    #             equals = entry.index('=')
+    #             return {entry[:equals]: self.parse_semantic_func(entry[equals+2:-1])}
+    #
+    #     tokens = tokenize(func)
+    #     if len(tokens) == 1 and "=" not in tokens[0]:
+    #         return SemanticFunction(tokens[0], True)
+    #     else:
+    #         funcDict = {}
+    #         entries = list(map(to_dict_entry, tokens))
+    #         for e in entries:
+    #             funcDict.update(e)
+    #         return SemanticFunction(funcDict)
 
     def parse_entry(self, entry):
         """
@@ -112,8 +153,8 @@ class LexiconParser:
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
         type = self.parse_semantic_type(entryArray[2])
-        func = self.parse_semantic_func(entryArray[3])
-        entry = OpenClassEntry(type, func)
+        extension = self.parse_semantic_extension(entryArray[3])
+        entry = SemanticEntry(extension=extension, type=type)
         return LexicalEntry(english, category, entry)
 
     def parse_file(self, filename):

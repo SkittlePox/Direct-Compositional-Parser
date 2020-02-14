@@ -2,6 +2,7 @@ from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
 from GrammarInteractor import *
+# from Grammar import *
 
 def main():
     lexParser = LexiconParser()
@@ -10,32 +11,43 @@ def main():
     # print(entries)
     print(lexicon)
     grammar = Grammar()
-    interactor = GrammarInteractor(grammar)
-    interactor.populate_lexicon(lexicon)
-    print("After populating:")
-    print(lexicon)
+    # interactor = GrammarInteractor(grammar)
+    # interactor.populate_lexicon(lexicon)
+    # print("After populating:")
+    # print(lexicon)
 
-def test():
-    dicto = {"a" : 1, "b" : 2}
-    dicto2 = {"z" : dicto}
-    print(dicto2)
-    te = ['z', 'b']
-    sem1 = SemanticExpression(dicto2, 'z')
-    sem2 = SemanticExpression(sem1, 'a')
-    sem3 = SemanticExpression(dicto2, te)
-    sem4 = SemanticExpression("hello", te)
-    print(sem2, type(sem2))
-    print(sem1.evaluate(), type(sem1.evaluate()))
-    print(sem2.evaluate(), type(sem2.evaluate()))
-    print(sem3.evaluate(), type(sem3.evaluate()))
-    print(sem3)
-    print(sem4)
+def test5():
+    a = SemanticIntention(argument="ben")
+    b = SemanticIntention(argument="likes")
+    c = SemanticIntention(function=b, argument=a) # likes(ben)
+    d = SemanticIntention(argument="ellie")
+    e = SemanticIntention(c, d)
+    f = SemanticIntention(argument="happens")
+    g = SemanticIntention(function=f, argument=e)
+    h = SemanticIntention(function=f, argument=g)
+    print(h)
 
-def test2():
-    lexParser = LexiconParser()
-    entries = lexParser.parse_file("lexicon.txt")
-    lexicon = Lexicon(set(entries))
-    print(lexicon)
+# def test():
+#     dicto = {"a" : 1, "b" : 2}
+#     dicto2 = {"z" : dicto}
+#     print(dicto2)
+#     te = ['z', 'b']
+#     sem1 = SemanticExpression(dicto2, 'z')
+#     sem2 = SemanticExpression(sem1, 'a')
+#     sem3 = SemanticExpression(dicto2, te)
+#     sem4 = SemanticExpression("hello", te)
+#     print(sem2, type(sem2))
+#     print(sem1.evaluate(), type(sem1.evaluate()))
+#     print(sem2.evaluate(), type(sem2.evaluate()))
+#     print(sem3.evaluate(), type(sem3.evaluate()))
+#     print(sem3)
+#     print(sem4)
+#
+# def test2():
+#     lexParser = LexiconParser()
+#     entries = lexParser.parse_file("lexicon.txt")
+#     lexicon = Lexicon(set(entries))
+#     print(lexicon)
 
 # def test3():
 #     a = ASemanticIntention("talks", "billy")
@@ -45,3 +57,4 @@ if __name__ == "__main__":
     main()
     # test()
     # test2()
+    # test5()

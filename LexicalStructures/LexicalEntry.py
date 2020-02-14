@@ -13,14 +13,16 @@ class LexicalEntry:
     def __eq__(self, other):
         return isinstance(other, LexicalEntry) \
         and self.english == other.english \
-        and self.category == other.category \
-        and self.semantics.type == other.semantics.type #and self.semantics.function == other.semantics.function
+        and self.category == other.category
+        # and self.semantics.type == other.semantics.type #and self.semantics.function == other.semantics.function
 
     def __str__(self):
-        cat = str(self.category)
+        category = str(self.category)
+        semantics = str(self.semantics)
         if SPACING:
-            return f"<[{self.id}] \"{self.english}\" ; {cat} ; {str(self.semantics)} >"
-        return f"<\"{self.english}\";{cat};{str(self.semantics)}>"
+            return f"<[{self.id}] \"{self.english}\" ; {category} ; {semantics} >"
+        else:
+            return f"<\"{self.english}\";{category};{semantics}>"
 
     def __hash__(self):
         return hash(self.english) # LOL easy way out

@@ -1,4 +1,4 @@
-from GrammarRules import *
+from .GrammarRules import *
 
 class CombinatoryRule():
     def __init__(self, name, test, operate):
