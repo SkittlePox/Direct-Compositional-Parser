@@ -16,8 +16,8 @@ walks ; S/NP ; <e,t> ; m=1 p=0 z=0
  class CombinatoryRule():   
   	def __init__(self, name, test, operate):
         """
-        test takes syntactic grammar categories
-        Returns whether or not this rule can operate on the given categories
+        test takes whole lexical entries and only looks at their syntax
+        Returns whether or not this rule can operate on the given syntax categories
 
         operate takes whole lexical entries
         Returns the resulting lexical entry after applying this rule
@@ -41,7 +41,7 @@ Example rule:
 ### R-1a
 
 def R1a_test(a, b):
-    return a.slash == SyntacticSlash.R and a.rhs == b
+    return a.syntax.slash == SyntacticSlash.R and a.syntax.rhs == b.syntax
 
 def R1a_operate(a, b):
     new_english = f"{a.english} {b.english}"
