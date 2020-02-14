@@ -7,7 +7,7 @@ Add entries to lexicon.txt following the patter and run main.py. Parsing rules a
 ```
 Zinkly ; NP ; e ; z
 walks ; S/NP ; <e,t> ; m=1 p=0 z=0
-< "Zinkly walks" ; S ; t ; 0 >
+< "Zinkly walks" ; S ; t ; walks'(z) ; 0 >
 ```
 
  This framework has support for custom grammar rules by writing a `test()` and `operate()` function:
@@ -44,10 +44,8 @@ def R1a_test(a, b):
     return a.slash == SyntacticSlash.R and a.rhs == b
 
 def R1a_operate(a, b):
-    newName = f"{a.english} {b.english}"
-    newCat = a.category.lhs
-    newEnt = a.function(b.function)
-    newSem = OpenClassEntry(a.type.rhs, newEnt)
-    return LexicalEntry(newName, newCat, newSem)
+    new_english = f"{a.english} {b.english}"
+    new_category = a.category.lhs
+    new_semantics = a.semantics(b.semantics)
+    return LexicalEntry(english=new_english, syntacticCategory=new_category, semanticEntry=new_semantics)
 ```
-
