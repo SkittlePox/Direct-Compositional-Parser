@@ -24,10 +24,10 @@ class Lexicon:
                 return True
         return False
 
-    def retrieve(self, id):
+    def retrieve(self, id_or_english):
         entry = None
         for e in self.entries:
-            if e.id == id:
+            if e.id == id_or_english or e.english == id_or_english:
                 return e
 
     def __str__(self):

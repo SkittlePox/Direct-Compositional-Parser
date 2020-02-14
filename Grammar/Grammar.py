@@ -1,7 +1,7 @@
 from .GrammarRules import *
 
 class CombinatoryRule():
-    def __init__(self, name, test, operate):
+    def __init__(self, name, test, operate, description=""):
         """
         test takes whole lexical entries and only looks at their syntax
         Returns whether or not this rule can operate on the given syntax categories
@@ -12,17 +12,18 @@ class CombinatoryRule():
         self.name = name
         self.test = test
         self.operate = operate
+        self.description = description
 
     def __call__(self, a, b):
         return self.operate(a, b)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}\n{self.description}"
 
 
 class Grammar():
     def __init__(self):
         rules = {}
-        rules['R-1a'] = (CombinatoryRule(name="R-1a", test=R1a_test, operate=R1a_operate))
+        rules['R-1a'] = (CombinatoryRule(name="R-1a", test=R1a_test, operate=R1a_operate, description="Some description here"))
         rules['R-1b'] = (CombinatoryRule(name="R-1b", test=R1b_test, operate=R1b_operate))
         self.rules = rules
