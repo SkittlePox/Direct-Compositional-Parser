@@ -31,25 +31,17 @@ class SyntacticSlash(enum.Enum):
     R = "ʳ"
 
 class SyntacticCategory:
-    def __init__(self, cat, slash=None, features=None):
-        self.primitive = isinstance(cat, SyntacticPrimitive)
-        if self.primitive:
-            self.lhs = cat
-            self.rhs = None
-        else:
-            self.lhs = cat[0]
-            self.rhs = cat[1]
-
+    def __init__(self, lhs=None, rhs=None, slash=None, features=None):
+        self.lhs = lhs
+        self.rhs = rhs  # This is possibly None
         self.features = features
-        if slash == None and self.primitive == False:
-            if self.lhs.primitive and self.lhs.lhs == SyntacticPrimitive.S:
-                self.slash = SyntacticSlash.L
-            elif self.lhs == self.rhs:
+        self.slash = slash
+
+        if slash == None and self.rhs is not None:  # Word order rules
+            if self.lhs.lhs == SyntacticPrimitive.S or self.lhs == self.rhs:
                 self.slash = SyntacticSlash.L
             else:
                 self.slash = SyntacticSlash.R
-        else:
-            self.slash = slash
 
     def optional_features(self):
         if self.features is None:
@@ -58,7 +50,7 @@ class SyntacticCategory:
             return "["+reduce(lambda a, b: f"{a}][{b}", self.features)+"]"
 
     def possible_primitive(self):
-        if self.primitive:
+        if self.rhs is None:
             return f"{str(self.lhs)}"
         else:
             return f"({str(self.lhs)}/{str(self.slash)}{str(self.rhs)})"

@@ -35,10 +35,10 @@ class LexiconParser:
 
         if "/" not in cat:
             if "[" not in cat:
-                return SyntacticCategory(SyntacticPrimitive(cat))
+                return SyntacticCategory(lhs=SyntacticPrimitive(cat))
             else:
                 cat, features = stripFeature(cat)
-                return SyntacticCategory(cat=SyntacticPrimitive(cat), features=features)
+                return SyntacticCategory(lhs=SyntacticPrimitive(cat), features=features)
         else:
             centerSlash = findSlash(cat)
             firstArg = cat[:centerSlash]
@@ -57,7 +57,7 @@ class LexiconParser:
                 firstArg = firstArg[1:-1]
             if secondArg[0] == "(":
                 secondArg = secondArg[1:-1]
-            return SyntacticCategory((self.parse_syntactic_category(firstArg), self.parse_syntactic_category(secondArg)), slash=slash)
+            return SyntacticCategory(lhs=self.parse_syntactic_category(firstArg), rhs=self.parse_syntactic_category(secondArg), slash=slash)
 
     def parse_semantic_type(self, type):
         """
