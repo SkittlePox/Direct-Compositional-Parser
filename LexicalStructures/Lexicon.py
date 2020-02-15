@@ -24,7 +24,7 @@ class Lexicon:
                 return True
         return False
 
-    def retrieve(self, id_or_english):
+    def getEntry(self, id_or_english):
         entry = None
         for e in self.entries:
             if e.id == id_or_english or e.english == id_or_english:

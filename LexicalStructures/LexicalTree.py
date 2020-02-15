@@ -4,6 +4,9 @@ class LexicalTree:
         self.a = a
         self.b = b
 
+    def __call__(self):
+        return self.calculate()
+
     def calculate(self):
         a = self.a.calculate() if isinstance(self.a, LexicalTree) else self.a
         b = self.b.calculate() if isinstance(self.b, LexicalTree) else self.b

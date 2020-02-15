@@ -2,7 +2,6 @@ from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
 from GrammarInteractor import *
-from LexicalTree import *
 
 def main():
     lexParser = LexiconParser()
@@ -23,17 +22,17 @@ def test():
     grammar = Grammar()
     r1b = grammar.rules['R-1b']
     r1a = grammar.rules['R-1a']
-    mitka = lexicon.retrieve("Mitka")
-    walks = lexicon.retrieve("walks")
+    mitka = lexicon.getEntry("Mitka")
+    walks = lexicon.getEntry("walks")
     # print(mitka, walks)
     # print(r1b.test(mitka, walks))
     print(r1b(mitka, walks))
     ltree = LexicalTree(rule=r1b, a=mitka, b=walks)
     print(ltree.calculate())
 
-    likes = lexicon.retrieve("likes")
-    porky = lexicon.retrieve("Porky")
-    zinkly = lexicon.retrieve("Zinkly")
+    likes = lexicon.getEntry("likes")
+    porky = lexicon.getEntry("Porky")
+    zinkly = lexicon.getEntry("Zinkly")
     # print(r1a.test(likes, porky))
     ptree = LexicalTree(rule=r1a, a=likes, b=porky)
     lptree = LexicalTree(rule=r1b, a=zinkly, b=ptree)
@@ -49,6 +48,20 @@ def test():
     print(lptree.calculate())
     print(mlptree.calculate())
 
+def example_lexicalTree():
+    lexParser = LexiconParser()
+    entries = lexParser.parse_file("lexicon.txt")
+    lexicon = Lexicon(list(set(entries)))
+    grammar = Grammar()
+    r1b = grammar.rules['R-1b']
+    r1a = grammar.rules['R-1a']
+
+    mitka = lexicon.getEntry("Mitka")
+    walks = lexicon.getEntry("walks")
+    ltree = LexicalTree(rule=r1b, a=mitka, b=walks)
+    print(ltree())
+
 if __name__ == "__main__":
-    # main()
-    test()
+    main()
+    # test()
+    example_lexicalTree()
