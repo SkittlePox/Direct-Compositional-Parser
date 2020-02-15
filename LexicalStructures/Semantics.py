@@ -41,6 +41,9 @@ class SemanticEntry:
         self.extension = extension
         self.type = type
 
+    def update(self, new_entries):
+        self.extension.update(new_entries)
+
     def __call__(self, argument):
         """
         argument is another SemanticEntry
