@@ -14,7 +14,7 @@ def main():
     print("After populating:")
     print(lexicon)
 
-def test():
+def test_parser():
     lexParser = LexiconParser()
     entries = lexParser.parse_file("lexicon.txt")
     lexicon = Lexicon(list(set(entries)))
@@ -50,6 +50,6 @@ def example_lexicalTree():
 
 
 if __name__ == "__main__":
-    # main()
-    test()
+    main()
+    # test_parser()
     # example_lexicalTree()

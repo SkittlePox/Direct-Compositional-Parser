@@ -16,6 +16,12 @@ class SemanticType:
             self.lhs = type[0]
             self.rhs = type[1]
 
+    def complexity(self):
+        if self.primitive:
+            return 1
+        else:
+            return self.lhs.complexity() + self.rhs.complexity()
+
     def __call__(self, argument):
         return self.rhs
 
@@ -43,6 +49,9 @@ class SemanticEntry:
 
     def update(self, new_entries):
         self.extension.update(new_entries)
+
+    def complexity(self):
+        return self.type.complexity()
 
     def __call__(self, argument):
         """
