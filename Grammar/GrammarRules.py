@@ -1,4 +1,7 @@
 from LexicalStructures import *
+from LexiconParser import *
+
+parser = LexiconParser()
 
 ### R-1a
 
@@ -23,7 +26,12 @@ def R1b_operate(a, b):
     return LexicalEntry(english=new_english, syntacticEntry=new_category, semanticEntry=new_semantics)
 
 ### R-2         This is a unary rule!
-# AP = S[A]/NP
-AP = SyntacticCategory((SyntacticCategory(SyntacticPrimitive("S"), features=["A"]), SyntacticPrimitive("NP")))
+
+AP = parser.parse_syntactic_category("S[A]/rNP")
+
 def R2_test(a):
     return a.syntax == AP
+
+def R2_operate(a):
+    new_category = parser.parse_syntactic_category("N/N") if a.english contains " " else parser.parse_syntactic_category("N/rN")
+    new_semantics = None    # Lots of work to implement this

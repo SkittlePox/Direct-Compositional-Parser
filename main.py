@@ -40,7 +40,7 @@ def example_lexicalTree():
     lptree = LexicalTree(rule=r1a, a=likes, b=porky)
     print(lptree.evaluate())
     zlptree = LexicalTree(rule=r1b, a=zinkly, b=lptree)
-    print(zlptree.evaluate())
+    print(zlptree.evaluate())   # This evaluates to undefined
 
     # likes == m=(m=1 p=1) p=(m=0 p=1) z=(m=0)
     # let's add something to make zlptree evaluate to a value
@@ -52,11 +52,13 @@ def grammarTest():
     entries = lexParser.parse_file("lexicon.txt")
     lexicon = Lexicon(list(set(entries)))
     print(lexicon)
-    # honest = lexicon.getEntry("honest")
-    # print(R2_test(honest))
+    snp = lexParser.parse_syntactic_category("S/NP")
+    # print(snp)
+    honest = lexicon.getEntry("honest")
+    print(R2_test(honest))
 
 if __name__ == "__main__":
-    main()
+    # main()
     # test_parser()
     # example_lexicalTree()
     grammarTest()
