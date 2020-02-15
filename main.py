@@ -47,9 +47,16 @@ def example_lexicalTree():
     likes.semantics.update({"p": {"z": "1"}})
     print(zlptree.evaluate())   # Now this evaluates to 1
 
-
+def grammarTest():
+    lexParser = LexiconParser()
+    entries = lexParser.parse_file("lexicon.txt")
+    lexicon = Lexicon(list(set(entries)))
+    print(lexicon)
+    # honest = lexicon.getEntry("honest")
+    # print(R2_test(honest))
 
 if __name__ == "__main__":
     main()
     # test_parser()
     # example_lexicalTree()
+    grammarTest()

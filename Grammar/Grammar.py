@@ -1,6 +1,6 @@
 from .GrammarRules import *
 
-class CombinatoryRule():
+class Rule():
     def __init__(self, name, test, operate, description=""):
         """
         test takes whole lexical entries and only looks at their syntax
@@ -20,10 +20,18 @@ class CombinatoryRule():
     def __str__(self):
         return f"{self.name}\n{self.description}"
 
+class CombinatoryRule(Rule):
+    pass
+
+class UnaryRule(Rule):
+    def __call__(self, a):
+        return self.operate(a)
+
 
 class Grammar():
     def __init__(self):
         rules = {}
         rules['R-1a'] = (CombinatoryRule(name="R-1a", test=R1a_test, operate=R1a_operate, description="Some description here"))
         rules['R-1b'] = (CombinatoryRule(name="R-1b", test=R1b_test, operate=R1b_operate))
+        
         self.rules = rules

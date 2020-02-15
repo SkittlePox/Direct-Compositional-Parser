@@ -74,12 +74,11 @@ class LexiconParser:
                     return i
 
         if type[0] != "<":
-            return SemanticType(SemanticTypePrimitive(type))
+            return SemanticType(rhs=SemanticTypePrimitive(type))
         else:
             subtype = type[1:-1]
             centerline = findBreak(subtype)
-            return SemanticType((self.parse_semantic_type(subtype[:centerline]), self.parse_semantic_type(subtype[centerline+1:])))
-            pass
+            return SemanticType(lhs=self.parse_semantic_type(subtype[:centerline]), rhs=self.parse_semantic_type(subtype[centerline+1:]))
 
     def parse_semantic_extension(self, func):
         """

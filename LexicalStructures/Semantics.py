@@ -7,69 +7,31 @@ class SemanticTypePrimitive(enum.Enum):
     t = "t"
 
 class SemanticType:
-    def __init__(self, type):
-        self.primitive = isinstance(type, SemanticTypePrimitive)
-        if self.primitive:
-            self.lhs = type
-            self.rhs = None
-        else:
-            self.lhs = type[0]
-            self.rhs = type[1]
+    def __init__(self, lhs=None, rhs=None):
+        self.lhs = lhs
+        self.rhs = rhs
 
     def complexity(self):
-        if self.primitive:
+        if self.lhs == None:
             return 1
-        else:
-            return self.lhs.complexity() + self.rhs.complexity()
+        lhs = 1 if isinstance(self.lhs, SemanticTypePrimitive) else self.lhs.complexity()
+        rhs = 1 if isinstance(self.rhs, SemanticTypePrimitive) else self.rhs.complexity()
+        return lhs + rhs
 
     def __call__(self, argument):
         return self.rhs
 
     def __str__(self):
-        if self.primitive:
-            return str(self.lhs)
+        if self.lhs == None:
+            return str(self.rhs)
         else:
             return f"<{str(self.lhs)},{str(self.rhs)}>"
 
     def __eq__(self, other):
         return isinstance(other, SemanticType) \
-        and self.primitive == other.primitive \
         and self.lhs == other.lhs and self.rhs == other.rhs
 
 #########################
-
-class SemanticEntry:
-    def __init__(self, intention=None, extension=None, type=None):
-        """
-        Takes a SemanticIntention, SemanticExtension, and SemanticType
-        """
-        self.intention = intention
-        self.extension = extension
-        self.type = type
-
-    def update(self, new_entries):
-        self.extension.update(new_entries)
-
-    def complexity(self):
-        return self.type.complexity()
-
-    def __call__(self, argument):
-        """
-        argument is another SemanticEntry
-        """
-        intention = self.intention(argument.intention)
-        extension = self.extension(argument.extension)
-        type = self.type(argument.type)
-        return SemanticEntry(intention=intention, extension=extension, type=type)
-
-    def __str__(self):
-        baseStr = ""
-        baseStr += str(self.type)
-        baseStr += " ; "
-        baseStr += str(self.intention)
-        baseStr += " ; "
-        baseStr += str(self.extension)
-        return baseStr
 
 class SemanticExtension:
     def __init__(self, function):
@@ -111,6 +73,8 @@ class SemanticExtension:
         else:
             return dict_to_special(self.function)
 
+#########################
+
 class SemanticIntention:
     def __init__(self, function=None, argument=None):
         """
@@ -136,3 +100,38 @@ class SemanticIntention:
             return str(self.argument)
         else:
             return f"{str(self.function)}({str(self.argument)})"
+
+#########################
+
+class SemanticEntry:
+    def __init__(self, intention=None, extension=None, type=None):
+        """
+        Takes a SemanticIntention, SemanticExtension, and SemanticType
+        """
+        self.intention = intention
+        self.extension = extension
+        self.type = type
+
+    def update(self, new_entries):
+        self.extension.update(new_entries)
+
+    def complexity(self):
+        return self.type.complexity()
+
+    def __call__(self, argument):
+        """
+        argument is another SemanticEntry
+        """
+        intention = self.intention(argument.intention)
+        extension = self.extension(argument.extension)
+        type = self.type(argument.type)
+        return SemanticEntry(intention=intention, extension=extension, type=type)
+
+    def __str__(self):
+        baseStr = ""
+        baseStr += str(self.type)
+        baseStr += " ; "
+        baseStr += str(self.intention)
+        baseStr += " ; "
+        baseStr += str(self.extension)
+        return baseStr
