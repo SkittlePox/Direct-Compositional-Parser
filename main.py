@@ -55,10 +55,10 @@ def grammarTest():
     snp = lexParser.parse_syntactic_category("S/NP")
     # print(snp)
     honest = lexicon.getEntry("honest")
-    print(R2_test(honest))
+    # print(R2_test(honest))
 
 if __name__ == "__main__":
-    # main()
+    main()
     # test_parser()
-    # example_lexicalTree()
-    grammarTest()
+    example_lexicalTree()
+    # grammarTest()

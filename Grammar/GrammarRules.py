@@ -33,5 +33,5 @@ def R2_test(a):
     return a.syntax == AP
 
 def R2_operate(a):
-    new_category = parser.parse_syntactic_category("N/N") if a.english contains " " else parser.parse_syntactic_category("N/rN")
+    new_category = parser.parse_syntactic_category("N/N") if " " in a.english else parser.parse_syntactic_category("N/rN")
     new_semantics = None    # Lots of work to implement this
