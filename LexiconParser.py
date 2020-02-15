@@ -18,8 +18,27 @@ class LexiconParser:
                 elif bracketcount == 0 and subcat[i] == "/":
                     return i
 
+        def stripFeature(subcat):
+            features = []
+            category = ""
+            have_cat = False
+            feature_start_ind = 0
+            for i in range(len(subcat)):
+                if subcat[i] == "[":
+                    if not have_cat:
+                        have_cat = True
+                        category = subcat[:i]
+                    feature_start_ind = i+1
+                elif subcat[i] == "]":
+                    features.append(subcat[feature_start_ind:i])
+            return category, features
+
         if "/" not in cat:
-            return SyntacticCategory(SyntacticPrimitive(cat))
+            if "[" not in cat:
+                return SyntacticCategory(SyntacticPrimitive(cat))
+            else:
+                cat, features = stripFeature(cat)
+                return SyntacticCategory(cat=SyntacticPrimitive(cat), features=features)
         else:
             centerSlash = findSlash(cat)
             firstArg = cat[:centerSlash]

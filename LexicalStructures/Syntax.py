@@ -1,4 +1,5 @@
 import enum
+from functools import reduce
 
 VERBOSE = True
 
@@ -16,6 +17,9 @@ class SyntacticFeature(enum.Enum):
         return self.value
     A = "A"
     V = "V"
+    TO = "TO"
+    OF = "OF"
+    GEN = "GEN"
 
 class SyntacticSlash(enum.Enum):
     def __str__(self):
@@ -51,7 +55,7 @@ class SyntacticCategory:
         if self.features is None:
             return ""
         else:
-            return "["+reduce(lambda a, b: f"{a},{b}", self.features)+"]"
+            return "["+reduce(lambda a, b: f"{a}][{b}", self.features)+"]"
 
     def possible_primitive(self):
         if self.primitive:
