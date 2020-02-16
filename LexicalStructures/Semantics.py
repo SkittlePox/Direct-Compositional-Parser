@@ -33,10 +33,42 @@ class SemanticType:
 
 #########################
 
+# class SemanticFunction:
+#     def __init__(self, function):
+#         def get_dict_function(dictionary):
+#             def func(x):
+#                 if x in dictionary:
+#                     return SemanticExtensionDict(function=dictionary[x])
+#                 else:
+#                     return SemanticExtensionDict(function={})
+#             return func
+#
+#         if isinstance(function, dict):
+#             self.function = get_dict_function(function)
+
+# class SemanticFunction:
+#     def __init__(self, function):
+#         self.dictionary = None
+#         self.function
+
+
 class SemanticExtension:
+    pass
+
+class SemanticExtensionLambda(SemanticExtension):
     def __init__(self, function):
         """
-        function is a dictionary like {m: 1, p: 1}
+        function is an actual function made from a class of functions
+        """
+        self.function = function
+
+    def __call__(self, argument):
+        return self.function(argument)
+
+class SemanticExtensionDict(SemanticExtension):
+    def __init__(self, function):
+        """
+        function is a dictionary like {m: 1, p: 1}, maybe it should be an actual function that wraps a dictionary
         """
         self.function = function
 
@@ -51,9 +83,9 @@ class SemanticExtension:
 
     def __call__(self, argument):
         if argument.function in self.function:
-            return SemanticExtension(function=self.function[argument.function])
+            return SemanticExtensionDict(function=self.function[argument.function])
         else:
-            return SemanticExtension(function={})
+            return SemanticExtensionDict(function={})
 
     def __str__(self):
         def dict_to_special(dictionary):

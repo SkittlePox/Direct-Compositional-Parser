@@ -57,8 +57,13 @@ def grammarTest():
     honest = lexicon.getEntry("honest")
     # print(R2_test(honest))
 
+# def semanticTest():
+#     z = SemanticFunction({"p": {"z": "1"}})
+#     print(z.function("p"))
+
 if __name__ == "__main__":
     main()
-    # test_parser()
+    test_parser()
     example_lexicalTree()
-    # grammarTest()
+    grammarTest()
+    # semanticTest()

@@ -7,3 +7,4 @@ likes ; (S/NP)/NP ; <e,<e,t>> ; m=(m=1 p=1) p=(m=0 p=1) z=(m=0)
 #feeds ; (S/NP)/NP ; <e,<e,t>>
 speak ; (S/NP)/PP[TO] ; <e,<e,t>> ; m=(m=0 p=1 z=0) p=(m=1 p=1 z=0) z=(p=1)
 honest ; S[A]/rNP ; <e,t> ; m=0 p=1 z=1
+dog ; N ; <e,t> ; m=1 p=1 z=0
