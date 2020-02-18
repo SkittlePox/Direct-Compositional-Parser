@@ -41,11 +41,14 @@ def example_lexicalTree():
     print(lptree.evaluate())
     zlptree = LexicalTree(rule=r1b, a=zinkly, b=lptree)
     print(zlptree.evaluate())   # This evaluates to undefined
+    print("The above should be undefined")
 
     # likes == m=(m=1 p=1) p=(m=0 p=1) z=(m=0)
     # let's add something to make zlptree evaluate to a value
     likes.semantics.update({"p": {"z": "1"}})
+    print(likes.semantics)
     print(zlptree.evaluate())   # Now this evaluates to 1
+    print("This should now evaluate to 1")
 
 def grammarTest():
     lexParser = LexiconParser()
@@ -57,13 +60,19 @@ def grammarTest():
     honest = lexicon.getEntry("honest")
     # print(R2_test(honest))
 
-# def semanticTest():
-#     z = SemanticFunction({"p": {"z": "1"}})
-#     print(z.function("p"))
+def semanticTest():
+    lexParser = LexiconParser()
+    snp = lexParser.parse_syntactic_category("S/NP")
+    s = SemTest(snp)
+    o1, o2 = s.f("hi")
+    print(o1, o2)
+    s.var = "Working"
+    o1, o2 = s.f("hmm")
+    print(o1, o2)
 
 if __name__ == "__main__":
     main()
     test_parser()
     example_lexicalTree()
-    grammarTest()
+    # grammarTest()
     # semanticTest()

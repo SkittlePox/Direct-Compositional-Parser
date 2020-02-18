@@ -50,6 +50,13 @@ class SemanticType:
 #     def __init__(self, function):
 #         self.dictionary = None
 #         self.function
+#
+# class SemTest:
+#     def __init__(self, var):
+#         def give_var(seb):
+#             return var
+#
+#         self.var = var
 
 
 class SemanticExtension:
@@ -106,6 +113,7 @@ class SemanticExtensionDict(SemanticExtension):
             return dict_to_special(self.function)
 
 #########################
+
 
 class SemanticIntention:
     def __init__(self, function=None, argument=None):
