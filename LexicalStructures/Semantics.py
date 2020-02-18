@@ -33,51 +33,81 @@ class SemanticType:
 
 #########################
 
-# class SemanticFunction:
+# class SemanticExtension:
+#     pass
+#
+# class SemanticExtensionLambda(SemanticExtension):
 #     def __init__(self, function):
-#         def get_dict_function(dictionary):
-#             def func(x):
-#                 if x in dictionary:
-#                     return SemanticExtensionDict(function=dictionary[x])
+#         """
+#         function is an actual function made from a class of functions
+#         """
+#         self.function = function
+#
+#     def __call__(self, argument):
+#         return self.function(argument)
+#
+# class SemanticExtensionDict(SemanticExtension):
+#     def __init__(self, function):
+#         """
+#         function is a dictionary like {m: 1, p: 1}, maybe it should be an actual function that wraps a dictionary
+#         """
+#         self.function = function
+#
+#     def update(self, new_entries):
+#         def dict_updater(orig_dict, entries):
+#             for key, val in entries.items():
+#                 if isinstance(val, dict):
+#                     dict_updater(orig_dict[key], val)
 #                 else:
-#                     return SemanticExtensionDict(function={})
-#             return func
+#                     orig_dict.update({key: val})
+#         dict_updater(self.function, new_entries)
 #
-#         if isinstance(function, dict):
-#             self.function = get_dict_function(function)
-
-# class SemanticFunction:
-#     def __init__(self, function):
-#         self.dictionary = None
-#         self.function
+#     def __call__(self, argument):
+#         if argument.function in self.function:
+#             return SemanticExtensionDict(function=self.function[argument.function])
+#         else:
+#             return SemanticExtensionDict(function={})
 #
-# class SemTest:
-#     def __init__(self, var):
-#         def give_var(seb):
-#             return var
+#     def __str__(self):
+#         def dict_to_special(dictionary):
+#             baseStr = ""
+#             for key, value in dictionary.items():
+#                 if isinstance(value, str):
+#                     baseStr += f"{key}={str(value)} "
+#                 else:
+#                     baseStr += f"{key}=({dict_to_special(value)}) "
+#             baseStr = baseStr[:-1]
+#             return baseStr
 #
-#         self.var = var
+#         if isinstance(self.function, str) or isinstance(self.function, int):
+#             return str(self.function)
+#         elif not self.function:
+#             return "undefined"
+#         else:
+#             return dict_to_special(self.function)
 
+#########################
+# Experiment below
 
-class SemanticExtension:
-    pass
-
-class SemanticExtensionLambda(SemanticExtension):
-    def __init__(self, function):
+class LambdaCalcExpression:
+    def __init__(self, expression):
         """
-        function is an actual function made from a class of functions
+        Expression may be a callable function or a dictionary to be turned into a callable function
+        This class represents a lambda calculus expression, intention
         """
-        self.function = function
+        def dict_to_func(dictionary):
+            def get_arg(argument):
+                if argument in dictionary:
+                    return LambdaCalcExpression(expression=dictionary[argument])
+                else:
+                    return LambdaCalcExpression(expression={})
+            return get_arg
 
-    def __call__(self, argument):
-        return self.function(argument)
-
-class SemanticExtensionDict(SemanticExtension):
-    def __init__(self, function):
-        """
-        function is a dictionary like {m: 1, p: 1}, maybe it should be an actual function that wraps a dictionary
-        """
-        self.function = function
+        self.expression = expression
+        if isinstance(self.expression, dict):
+            self.function = dict_to_func(self.expression)
+        else:
+            self.function = self.expression
 
     def update(self, new_entries):
         def dict_updater(orig_dict, entries):
@@ -86,13 +116,7 @@ class SemanticExtensionDict(SemanticExtension):
                     dict_updater(orig_dict[key], val)
                 else:
                     orig_dict.update({key: val})
-        dict_updater(self.function, new_entries)
-
-    def __call__(self, argument):
-        if argument.function in self.function:
-            return SemanticExtensionDict(function=self.function[argument.function])
-        else:
-            return SemanticExtensionDict(function={})
+        dict_updater(self.expression, new_entries)
 
     def __str__(self):
         def dict_to_special(dictionary):
@@ -105,23 +129,15 @@ class SemanticExtensionDict(SemanticExtension):
             baseStr = baseStr[:-1]
             return baseStr
 
-        if isinstance(self.function, str) or isinstance(self.function, int):
-            return str(self.function)
-        elif not self.function:
+        if isinstance(self.expression, str) or isinstance(self.expression, int):
+            return str(self.expression)
+        elif not self.expression:
             return "undefined"
         else:
-            return dict_to_special(self.function)
+            return dict_to_special(self.expression)
 
-#########################
-# Experiment below
-
-class SemanticLambda:
-    def __init__(self, expression, is_function=True):
-        """
-        This may be a function or simply a value
-        This class represents a lambda calculus expression, a true intention
-        """
-        self.expression = expression
+    def __call__(self, argument):
+        return self.function(argument.expression)
 
 #########################
 

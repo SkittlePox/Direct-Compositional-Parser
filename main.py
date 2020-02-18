@@ -45,10 +45,11 @@ def example_lexicalTree():
 
     # likes == m=(m=1 p=1) p=(m=0 p=1) z=(m=0)
     # let's add something to make zlptree evaluate to a value
+    print(likes.semantics)
     likes.semantics.update({"p": {"z": "1"}})
     print(likes.semantics)
+    print("This should now evaluate to 1:")
     print(zlptree.evaluate())   # Now this evaluates to 1
-    print("This should now evaluate to 1")
 
 def grammarTest():
     lexParser = LexiconParser()
@@ -71,11 +72,22 @@ def semanticTest():
     print(o1, o2)
 
 def semanticTest2():
-    print("hlo")
+    dicto = {"p": {"z": "1"}}
+    dicto2 = {"p": "1", "m": "1"}
+
+    l1 = LambdaCalcExpression(expression=dicto2)
+    print(l1("p"))
+    l1.expression.update({"p": "0"})
+    print(l1("p"))
+
+    l2 = LambdaCalcExpression(expression=dicto)
+    print(l2("p"))
+    l2.expression["p"].update({"z": "0"})
+    print(l2("p"))
 
 if __name__ == "__main__":
-    # main()
+    main()
     # test_parser()
-    # example_lexicalTree()
+    example_lexicalTree()
     # grammarTest()
-    semanticTest2()
+    # semanticTest2()
