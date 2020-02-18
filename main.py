@@ -70,9 +70,12 @@ def semanticTest():
     o1, o2 = s.f("hmm")
     print(o1, o2)
 
+def semanticTest2():
+    print("hlo")
+
 if __name__ == "__main__":
-    main()
-    test_parser()
-    example_lexicalTree()
+    # main()
+    # test_parser()
+    # example_lexicalTree()
     # grammarTest()
-    # semanticTest()
+    semanticTest2()

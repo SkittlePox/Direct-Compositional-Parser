@@ -113,7 +113,17 @@ class SemanticExtensionDict(SemanticExtension):
             return dict_to_special(self.function)
 
 #########################
+# Experiment below
 
+class SemanticLambda:
+    def __init__(self, expression, is_function=True):
+        """
+        This may be a function or simply a value
+        This class represents a lambda calculus expression, a true intention
+        """
+        self.expression = expression
+
+#########################
 
 class SemanticIntention:
     def __init__(self, function=None, argument=None):
