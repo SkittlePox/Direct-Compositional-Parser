@@ -73,11 +73,18 @@ class LambdaCalcExpression:
             baseStr = baseStr[:-1]
             return baseStr
 
+        def func_to_special(function):
+            baseStr = ""
+            for arg in self.arguments:
+                baseStr += f"{arg}=({str(function(arg))}) "
+            baseStr = baseStr[:-1]
+            return baseStr
+
         if isinstance(self.expression, str) or isinstance(self.expression, int):
             return str(self.expression)
         elif not self.expression:
             return "undefined"
-        else:
+        elif isinstance(self.expression, dict):
             return dict_to_special(self.expression)
 
     def __call__(self, argument):
