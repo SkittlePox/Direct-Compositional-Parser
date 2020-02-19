@@ -141,7 +141,6 @@ class LexiconParser:
         english = entryArray[0]
         category = self.parse_syntactic_category(entryArray[1])
         type = self.parse_semantic_type(entryArray[2])
-        # extension = SemanticExtensionDict(self.parse_semantic_extension(entryArray[3]))
         extension = LambdaCalcExpression(self.parse_semantic_extension(entryArray[3]))
         intention = self.parse_semantic_intention(extension, english)
         entry = SemanticEntry(extension=extension, intention=intention, type=type)
