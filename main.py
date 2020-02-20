@@ -85,9 +85,23 @@ def semanticTest2():
     l2.expression["p"].update({"z": "0"})
     print(l2("p"))
 
+def nmodTest():
+    lexParser = LexiconParser()
+    entries = lexParser.parse_file("lexicon.txt")
+    lexicon = Lexicon(list(set(entries)))
+    print(lexicon)
+    grammar = Grammar()
+    honest = lexicon.getEntry("honest")
+    print(honest)
+    r2 = grammar.rules['R-2']
+    print(r2.test(honest))
+    print(r2(honest))
+
+
 if __name__ == "__main__":
-    main()
+    # main()
     # test_parser()
-    example_lexicalTree()
+    # example_lexicalTree()
     # grammarTest()
     # semanticTest2()
+    nmodTest()

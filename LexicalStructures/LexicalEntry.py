@@ -5,6 +5,11 @@ SPACING = True
 
 class LexicalEntry:
     def __init__(self, english, syntacticEntry, semanticEntry, id=-1):
+        """
+        english might be something like 'John'
+        syntacticEntry is a SyntacticCategory
+        semanticEntry is a SemanticEntry
+        """
         self.english = english
         self.syntax = syntacticEntry
         self.semantics = semanticEntry
