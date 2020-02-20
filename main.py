@@ -2,6 +2,7 @@ from LexicalStructures import *
 from Grammar import *
 from LexiconParser import *
 from GrammarInteractor import *
+from SymbolicStructures import *
 
 def main():
     lexParser = LexiconParser()
@@ -12,7 +13,12 @@ def main():
     interactor = GrammarInteractor(grammar)
     interactor.populate_lexicon(lexicon)
     print("After populating:")
-    print(lexicon)
+    # print(lexicon)
+    ll = list(filter(lambda x: str(x.semantics.extension) is not "undefined", lexicon.entries))
+    # llm = list(map(lambda x: str(x), ll))
+    ddd = Lexicon(ll)
+    print(ddd)
+
 
 def test_parser():
     lexParser = LexiconParser()
@@ -85,9 +91,13 @@ def semanticTest2():
     l2.expression["p"].update({"z": "0"})
     print(l2("p"))
 
+def symbolic_test():
+    pass
+
 if __name__ == "__main__":
     main()
     # test_parser()
-    example_lexicalTree()
+    # example_lexicalTree()
     # grammarTest()
     # semanticTest2()
+    # symbolic_test()
