@@ -12,7 +12,8 @@ class Lexicon:
 
     def insort(self, entry):
         """
-        I should be using bisect.insort with a key, but the developers thought it would cause developers to write inefficient code
+        I should be using bisect.insort with a key, but the developers who wrote
+        the bisect library thought it would cause developers to write inefficient code
         well, take this, O(n)
         """
         entry_complexity = entry.semantics.complexity()

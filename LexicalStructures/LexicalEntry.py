@@ -4,7 +4,16 @@ from functools import reduce
 SPACING = True
 
 class LexicalEntry:
+    """
+    A LexicalEntry is a representation of a linguistic expression which is a triplet:
+    <[sound], syntax category, [[semantic meaning]]>
+    """
     def __init__(self, english, syntacticEntry, semanticEntry, id=-1):
+        """
+        english is a string that represents the [sound] of the expression, like 'walks'
+        syntacticEntry is a SyantacticCategory from Syntax.py
+        semanticEntry is a SemanticEntry from Semantics.py
+        """
         self.english = english
         self.syntax = syntacticEntry
         self.semantics = semanticEntry

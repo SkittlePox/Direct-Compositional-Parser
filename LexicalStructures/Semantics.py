@@ -3,15 +3,22 @@ import enum
 class SemanticTypePrimitive(enum.Enum):
     def __str__(self):
         return str(self.value)
-    e = "e"
-    t = "t"
+    e = "e" # Individual
+    t = "t" # Truth value
 
 class SemanticType:
+    """
+    This object contains a semantic type like <e,t>
+    A linguistic expression with type <e,t> is a function from individuals (e) to truth values (t)
+    """
     def __init__(self, lhs=None, rhs=None):
         self.lhs = lhs
         self.rhs = rhs
 
     def complexity(self):
+        """
+        This is for sorting purposes
+        """
         if self.lhs == None:
             return 1
         lhs = 1 if isinstance(self.lhs, SemanticTypePrimitive) else self.lhs.complexity()
@@ -130,6 +137,9 @@ class SemanticEntry:
         self.type = type
 
     def update(self, new_entries):
+        """
+        This allows for the possibility of re-defining expressions
+        """
         self.extension.update(new_entries)
 
     def complexity(self):
