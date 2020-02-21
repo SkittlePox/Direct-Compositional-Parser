@@ -14,10 +14,10 @@ def main():
     interactor.populate_lexicon(lexicon)
     print("After populating:")
     print(lexicon)
-    ll = list(filter(lambda x: str(x.semantics.extension) is not "undefined", lexicon.entries))
-    # llm = list(map(lambda x: str(x), ll))
-    ddd = Lexicon(ll)
-    print(ddd)
+    # ll = list(filter(lambda x: str(x.semantics.extension) is not "undefined", lexicon.entries))
+    # # llm = list(map(lambda x: str(x), ll))
+    # ddd = Lexicon(ll)
+    # print(ddd)
 
 
 def test_parser():
