@@ -49,3 +49,29 @@ def R1a_operate(a, b):
     new_semantics = a.semantics(b.semantics)
     return LexicalEntry(english=new_english, syntacticCategory=new_category, semanticEntry=new_semantics)
 ```
+
+
+
+## A More Thorough Explanation
+
+All linguistic expressions are triples: `<[sound], Syntax Category, [[semantic meaning]]>`
+
+Expressions are combined and lifted using combinatory and unary rules. Combinatory rules take two expressions and combine to form a new expression, unary rules apply to a single expression and form a new expresion. These rules compose a grammar.
+
+The semantic meaning of a linguistic expression is represented by a lambda calculus expression like `likes(Porky)(Mitka)`, "Mitka likes treats." Here's what the entry for `likes` might look like:
+
+```
+likes ; (S/NP)/NP ; <e,<e,t>> ; m=(m=0 p=0) p=(m=1 p=0)
+```
+
+
+
+### The Code
+
+The `LexicalStructures` package is one of the most significant package, definitely take a look. The two most important files in this package are `LexicalEntry.py` and `Semantics.py`
+
+The `Grammar` package is also significant, it houses the grammar rules and the `Grammar` object.
+
+A `LexicalEntry` is a representation of a linguistic expression. `Lexicon` objects are collections of `LexicalEntry`s. Grammar rules operate on one or multiple `LexicalEntry`s.
+
+`Semantics.py` contains all of the semantic structures. There is a primary semantic object that contains substructures, this is the `SemanticEntry`. A `SemanticEntry` has a semantic type, extension and intention. The extension is a `LambdaCalcExpression`, this is a critical object that does the actual semantic calculation. Right now it's a glorified dictionary lookup, but my goal is to change this to a more sophisticated structure.
