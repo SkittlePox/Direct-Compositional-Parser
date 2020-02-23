@@ -30,8 +30,17 @@ def R1b_operate(a, b):
 AP = parser.parse_syntactic_category("S[A]/rNP")
 
 def R2_test(a):
+    # print(a.syntax == AP)
     return a.syntax == AP
 
 def R2_operate(a):
     new_category = parser.parse_syntactic_category("N/N") if " " in a.english else parser.parse_syntactic_category("N/rN")
-    new_semantics = None    # Lots of work to implement this
+    def given_P(P):
+        def given_x(x):
+            return a.semantics.extension.function(x) and P(x)
+        return given_x
+    extension = LambdaCalcExpression(given_P)
+    intention = SemanticIntention(argument=f"{str(a.semantics.intention)} - nmod")
+    type = parser.parse_semantic_type("<e,<e,<e,t>>>")
+    new_semantics = SemanticEntry(intention=intention, extension=extension, type=type)
+    return LexicalEntry(english=a.english, syntacticEntry=new_category, semanticEntry=new_semantics)

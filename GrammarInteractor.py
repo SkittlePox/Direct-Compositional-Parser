@@ -29,6 +29,7 @@ class GrammarInteractor():
                 unaryRules = self.possible_unaries(a)
                 if len(unaryRules) is not 0:
                     un_entries = list(map(lambda x: x(a), unaryRules))
+                    print(un_entries[0])
                     lexicon.add(un_entries)
                 for b in entries:
                     combinatoryRules = self.possible_combinations(a, b)

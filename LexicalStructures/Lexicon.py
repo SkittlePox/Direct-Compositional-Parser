@@ -20,7 +20,8 @@ class Lexicon:
         for i in range(len(self.entries)):
             if self.entries[i].semantics.complexity() > entry_complexity:
                 self.entries.insert(i, entry)
-                break
+                return
+        self.entries.insert(-1, entry)
 
     def add(self, entry):
         if isinstance(entry, LexicalEntry):

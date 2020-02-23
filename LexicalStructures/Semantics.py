@@ -93,6 +93,8 @@ class LambdaCalcExpression:
             return "undefined"
         elif isinstance(self.expression, dict):
             return dict_to_special(self.expression)
+        else:
+            return "special function"
 
     def __call__(self, argument):
         return self.function(argument.expression)
