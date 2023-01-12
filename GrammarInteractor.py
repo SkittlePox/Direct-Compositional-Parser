@@ -28,12 +28,12 @@ class GrammarInteractor():
             entries = copy.copy(lexicon.entries)
             for a in entries:
                 unaryRules = self.possible_unaries(a)
-                if len(unaryRules) is not 0:
+                if len(unaryRules) != 0:
                     un_entries = list(map(lambda x: x(a), unaryRules))
                     print(un_entries[0])
                     lexicon.add(un_entries)
                 for b in entries:
                     combinatoryRules = self.possible_combinations(a, b)
-                    if len(combinatoryRules) is not 0:
+                    if len(combinatoryRules) != 0:
                         newEntries = list(map(lambda x: x(a, b), combinatoryRules))
                         lexicon.add(newEntries)
