@@ -1,10 +1,11 @@
 from LexicalStructures.LexicalEntry import *
 
+
 class Lexicon:
     def __init__(self, entries=[]):
         self.entries = list(set(entries))  # A list of LexicalEntrys
         self.new_id = 1
-        self.entries.sort(key=lambda x: x.semantics.complexity())   # Sorts by complexity
+        self.entries.sort(key=lambda x: x.semantics.complexity())  # Sorts by complexity
 
         for e in self.entries:
             e.id = self.new_id

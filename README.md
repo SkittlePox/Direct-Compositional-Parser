@@ -2,7 +2,7 @@
 
 This is an implementation of the Direct Compositional semantic framework as given in CLPS 1342: Compositional Semantics
 
-Add entries to lexicon.txt following the patter and run main.py. Parsing rules are not perfectly enforced. If you abuse them, it just wont work.
+Add entries to lexicon.txt using the following pattern and run `main.py`. Parsing rules are *not* enforced.
 
 ```
 Zinkly ; NP ; e ; z
@@ -10,7 +10,7 @@ walks ; S/NP ; <e,t> ; m=1 p=0 z=0
 < "Zinkly walks" ; S ; t ; walks'(z) ; 0 >
 ```
 
- This framework has support for custom grammar rules by writing a `test()` and `operate()` function:
+ This framework has support for custom grammar rules, which require a `test()` and `operate()` function:
 
 ```python
  class CombinatoryRule():   
@@ -68,7 +68,7 @@ likes ; (S/NP)/NP ; <e,<e,t>> ; m=(m=0 p=0) p=(m=1 p=0)
 
 ### The Code
 
-The `LexicalStructures` package is one of the most significant package, definitely take a look. The two most important files in this package are `LexicalEntry.py` and `Semantics.py`
+The `LexicalStructures` package is one of the most significant packages, definitely take a look. The two most important files in this package are `LexicalEntry.py` and `Semantics.py`.
 
 The `Grammar` package is also significant, it houses the grammar rules and the `Grammar` object.
 

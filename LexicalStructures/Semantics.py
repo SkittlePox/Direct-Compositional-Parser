@@ -1,16 +1,20 @@
 import enum
 
+
 class SemanticTypePrimitive(enum.Enum):
     def __str__(self):
         return str(self.value)
-    e = "e" # Individual
-    t = "t" # Truth value
+
+    e = "e"  # Individual
+    t = "t"  # Truth value
+
 
 class SemanticType:
     """
     This object contains a semantic type like <e,t>
     A linguistic expression with type <e,t> is a function from individuals (e) to truth values (t)
     """
+
     def __init__(self, lhs=None, rhs=None):
         self.lhs = lhs
         self.rhs = rhs
@@ -36,7 +40,8 @@ class SemanticType:
 
     def __eq__(self, other):
         return isinstance(other, SemanticType) \
-        and self.lhs == other.lhs and self.rhs == other.rhs
+               and self.lhs == other.lhs and self.rhs == other.rhs
+
 
 #########################
 
@@ -46,12 +51,14 @@ class LambdaCalcExpression:
         Expression may be a callable function or a dictionary to be turned into a callable function
         This class represents a lambda calculus expression, intention
         """
+
         def dict_to_func(dictionary):
             def get_arg(argument):
                 if argument in dictionary:
                     return LambdaCalcExpression(expression=dictionary[argument])
                 else:
                     return LambdaCalcExpression(expression={})
+
             return get_arg
 
         self.expression = expression
@@ -67,6 +74,7 @@ class LambdaCalcExpression:
                     dict_updater(orig_dict[key], val)
                 else:
                     orig_dict.update({key: val})
+
         dict_updater(self.expression, new_entries)
 
     def __str__(self):
@@ -99,6 +107,7 @@ class LambdaCalcExpression:
     def __call__(self, argument):
         return self.function(argument.expression)
 
+
 #########################
 
 class SemanticIntention:
@@ -126,6 +135,7 @@ class SemanticIntention:
             return str(self.argument)
         else:
             return f"{str(self.function)}({str(self.argument)})"
+
 
 #########################
 

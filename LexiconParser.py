@@ -1,5 +1,6 @@
 from LexicalStructures import *
 
+
 class LexiconParser:
     def __init__(self):
         pass
@@ -8,6 +9,7 @@ class LexiconParser:
         """
         Parses a syntactic category like S/NP or (S/NP)/(S/NP)
         """
+
         def findSlash(subcat):
             bracketcount = 0
             for i in range(len(subcat)):
@@ -28,7 +30,7 @@ class LexiconParser:
                     if not have_cat:
                         have_cat = True
                         category = subcat[:i]
-                    feature_start_ind = i+1
+                    feature_start_ind = i + 1
                 elif subcat[i] == "]":
                     features.append(subcat[feature_start_ind:i])
             return category, features
@@ -44,25 +46,27 @@ class LexiconParser:
             firstArg = cat[:centerSlash]
             slash = None
 
-            if cat[centerSlash+1] == "r":
-                secondArg = cat[centerSlash+2:]
+            if cat[centerSlash + 1] == "r":
+                secondArg = cat[centerSlash + 2:]
                 slash = SyntacticSlash.R
-            elif cat[centerSlash+1] == "l":
-                secondArg = cat[centerSlash+2:]
+            elif cat[centerSlash + 1] == "l":
+                secondArg = cat[centerSlash + 2:]
                 slash = SyntacticSlash.L
             else:
-                secondArg = cat[centerSlash+1:]
+                secondArg = cat[centerSlash + 1:]
 
             if firstArg[0] == "(":
                 firstArg = firstArg[1:-1]
             if secondArg[0] == "(":
                 secondArg = secondArg[1:-1]
-            return SyntacticCategory(lhs=self.parse_syntactic_category(firstArg), rhs=self.parse_syntactic_category(secondArg), slash=slash)
+            return SyntacticCategory(lhs=self.parse_syntactic_category(firstArg),
+                                     rhs=self.parse_syntactic_category(secondArg), slash=slash)
 
     def parse_semantic_type(self, type):
         """
         Parses a semantic type like <e,t> or <e,<e,t>>
         """
+
         def findBreak(subtype):
             bracketcount = 0
             for i in range(len(subtype)):
@@ -78,14 +82,16 @@ class LexiconParser:
         else:
             subtype = type[1:-1]
             centerline = findBreak(subtype)
-            return SemanticType(lhs=self.parse_semantic_type(subtype[:centerline]), rhs=self.parse_semantic_type(subtype[centerline+1:]))
+            return SemanticType(lhs=self.parse_semantic_type(subtype[:centerline]),
+                                rhs=self.parse_semantic_type(subtype[centerline + 1:]))
 
     def parse_semantic_extension(self, func):
         """
         Parses a semantic function into a dictionary
         m=(m=1 p=1) p=(m=0 p=1) z=(m=0 p=0) -> {m: {m: 1, p: 1}, p: {m: 0, p: 1}, z: {m: 0, p: 0}}
         """
-        def tokenize(subfunc):   # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
+
+        def tokenize(subfunc):  # This tokenizes a function: m=1 p=0 -> ["m=1", "p=0"]
             subfunc += " "
             bracketcount = 0
             start = 0
@@ -96,9 +102,9 @@ class LexiconParser:
                     bracketcount += 1
                 elif subfunc[i] == ")":
                     bracketcount -= 1
-                elif bracketcount == 0 and subfunc[i] == " " or i == len(subfunc)-1:
+                elif bracketcount == 0 and subfunc[i] == " " or i == len(subfunc) - 1:
                     lst.append(subfunc[start:i])
-                    start = i+1
+                    start = i + 1
                     i += 1
                 i += 1
             return lst
@@ -106,10 +112,10 @@ class LexiconParser:
         def to_dict_entry(entry):
             if "(" not in entry:
                 equals = entry.index('=')
-                return {entry[:equals]: entry[equals+1:]}
+                return {entry[:equals]: entry[equals + 1:]}
             else:
                 equals = entry.index('=')
-                return {entry[:equals]: self.parse_semantic_extension(entry[equals+2:-1])}
+                return {entry[:equals]: self.parse_semantic_extension(entry[equals + 2:-1])}
 
         tokens = tokenize(func)
         if len(tokens) == 1 and "=" not in tokens[0]:

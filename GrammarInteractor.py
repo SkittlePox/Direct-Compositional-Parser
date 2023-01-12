@@ -2,6 +2,7 @@ from itertools import compress
 import copy
 from Grammar import *
 
+
 class GrammarInteractor():
     def __init__(self, grammar):
         self.grammar = grammar

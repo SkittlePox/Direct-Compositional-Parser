@@ -4,6 +4,7 @@ from LexiconParser import *
 from GrammarInteractor import *
 from SymbolicStructures import *
 
+
 def main():
     lexParser = LexiconParser()
     entries = lexParser.parse_file("lexicon.txt")
@@ -26,6 +27,7 @@ def test_parser():
     lexicon = Lexicon(list(set(entries)))
     print(lexicon)
 
+
 def example_lexicalTree():
     lexParser = LexiconParser()
     entries = lexParser.parse_file("lexicon.txt")
@@ -46,7 +48,7 @@ def example_lexicalTree():
     lptree = LexicalTree(rule=r1a, a=likes, b=porky)
     print(lptree.evaluate())
     zlptree = LexicalTree(rule=r1b, a=zinkly, b=lptree)
-    print(zlptree.evaluate())   # This evaluates to undefined
+    print(zlptree.evaluate())  # This evaluates to undefined
     print("The above should be undefined")
 
     # likes == m=(m=1 p=1) p=(m=0 p=1) z=(m=0)
@@ -55,7 +57,8 @@ def example_lexicalTree():
     likes.semantics.update({"p": {"z": "1"}})
     print(likes.semantics)
     print("This should now evaluate to 1:")
-    print(zlptree.evaluate())   # Now this evaluates to 1
+    print(zlptree.evaluate())  # Now this evaluates to 1
+
 
 def grammarTest():
     lexParser = LexiconParser()
@@ -67,6 +70,7 @@ def grammarTest():
     honest = lexicon.getEntry("honest")
     # print(R2_test(honest))
 
+
 def semanticTest():
     lexParser = LexiconParser()
     snp = lexParser.parse_syntactic_category("S/NP")
@@ -76,6 +80,7 @@ def semanticTest():
     s.var = "Working"
     o1, o2 = s.f("hmm")
     print(o1, o2)
+
 
 def semanticTest2():
     dicto = {"p": {"z": "1"}}
@@ -91,8 +96,10 @@ def semanticTest2():
     l2.expression["p"].update({"z": "0"})
     print(l2("p"))
 
+
 def symbolic_test():
     pass
+
 
 if __name__ == "__main__":
     main()

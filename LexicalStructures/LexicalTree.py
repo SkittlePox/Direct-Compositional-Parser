@@ -2,6 +2,7 @@ class LexicalTree:
     """
     A LexicalTree stores two LexicalEntrys and a single CombinatoryRule
     """
+
     def __init__(self, rule, a, b):
         self.rule = rule
         self.a = a

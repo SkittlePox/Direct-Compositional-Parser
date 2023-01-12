@@ -3,23 +3,28 @@ from functools import reduce
 
 VERBOSE = True
 
+
 class SyntacticPrimitive(enum.Enum):
     def __str__(self):
         return str(self.value)
+
     S = "S"
     NP = "NP"
     PP = "PP"
     N = "N"
     CP = "CP"
 
+
 class SyntacticFeature(enum.Enum):
     def __str__(self):
         return self.value
+
     A = "A"
     V = "V"
     TO = "TO"
     OF = "OF"
     GEN = "GEN"
+
 
 class SyntacticSlash(enum.Enum):
     def __str__(self):
@@ -27,8 +32,10 @@ class SyntacticSlash(enum.Enum):
             return self.value
         else:
             return ""
+
     L = "˻"
     R = "ʳ"
+
 
 class SyntacticCategory:
     def __init__(self, lhs=None, rhs=None, slash=None, features=None):
@@ -47,7 +54,7 @@ class SyntacticCategory:
         if self.features is None:
             return ""
         else:
-            return "["+reduce(lambda a, b: f"{a}][{b}", self.features)+"]"
+            return "[" + reduce(lambda a, b: f"{a}][{b}", self.features) + "]"
 
     def possible_primitive(self):
         if self.rhs is None:
@@ -60,5 +67,5 @@ class SyntacticCategory:
 
     def __eq__(self, other):
         return isinstance(other, SyntacticCategory) \
-        and self.lhs == other.lhs and self.rhs == other.rhs \
-        and self.features == other.features and self.slash == other.slash
+               and self.lhs == other.lhs and self.rhs == other.rhs \
+               and self.features == other.features and self.slash == other.slash
